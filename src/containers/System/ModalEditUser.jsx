@@ -36,8 +36,6 @@ class ModalEditUser extends Component {
     };
 
     handleOnChangeInput(event) {
-        // bad code setState directly
-        // good code
         let copyState = { ...this.state };
         let name = event.target.name;
         copyState[name] = event.target.value;

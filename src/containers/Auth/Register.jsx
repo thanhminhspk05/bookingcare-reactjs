@@ -63,7 +63,20 @@ class Register extends Component {
                             <div className="col-12 col-md-9 col-lg-7 col-xl-6">
                                 <div className="card">
                                     <div className="card-body p-5">
-                                        <h2 className="text-uppercase text-center mb-2 justify-space-between">Create an account</h2>
+                                        <h2 className="title">Create an account</h2>
+                                        <div className="form-outline mb-4">
+                                            <label className="form-label">Email address</label>
+                                            <input
+                                                type="email"
+                                                name="email"
+                                                className="form-control form-control-lg"
+                                                onChange={(event) => {
+                                                    this.handleOnChangeInput(event);
+                                                }}
+                                                value={this.state.email}
+                                                required
+                                            />
+                                        </div>
 
                                         <form action="/conform-email">
                                             <div className="d-flex form-outline mb-4 justify-content-between">
@@ -96,20 +109,6 @@ class Register extends Component {
                                             </div>
 
                                             <div className="form-outline mb-4">
-                                                <label className="form-label">Email address</label>
-                                                <input
-                                                    type="email"
-                                                    name="email"
-                                                    className="form-control form-control-lg"
-                                                    onChange={(event) => {
-                                                        this.handleOnChangeInput(event);
-                                                    }}
-                                                    value={this.state.email}
-                                                    required
-                                                />
-                                            </div>
-
-                                            <div className="form-outline mb-4">
                                                 <label className="form-label">Address</label>
                                                 <input
                                                     type="text"
@@ -131,7 +130,7 @@ class Register extends Component {
                                                     onChange={(event) => {
                                                         this.handleOnChangeInput(event);
                                                     }}
-                                                    value={this.state.phonenumber}
+                                                    value={this.state.phone}
                                                     required
                                                 />
                                             </div>
@@ -141,6 +140,7 @@ class Register extends Component {
                                                     <input
                                                         type="date"
                                                         name="birthday"
+                                                        max={new Date().toISOString().split('T')[0]}
                                                         onChange={(event) => {
                                                             this.handleOnChangeInput(event);
                                                         }}

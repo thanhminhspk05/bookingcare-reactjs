@@ -11,7 +11,6 @@ class ConformEmail extends Component {
     }
 
     render() {
-        console.log(this.state);
         return (
             <div className="conform-background ">
                 <div className="conform-content">

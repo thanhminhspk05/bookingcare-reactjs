@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import UserManageAdmin from '../containers/System/UserManageAdmin.jsx';
-import UserDoctor from '../containers/System/UserDoctor.jsx';
+import ManageForAdmin from '../containers/System/ManageForAdmin.jsx';
+import ManageForDoctor from '../containers/System/ManageForDoctor.jsx';
+import ManageForUser from '../containers/System/ManageForUser.jsx';
 import { changeLanguageApp } from '../store/actions/appActions';
 import Header from '../containers/Header/Header.js';
 class System extends Component {
@@ -19,14 +20,12 @@ class System extends Component {
                 <div className="system-list">
                     <Switch>
                         {roleId === 'admin' ? (
-                            <Route path="/system/user-manage" component={UserManageAdmin} />
+                            <Route path="/system/user-manage" component={ManageForAdmin} />
+                        ) : roleId === 'doctor' ? (
+                            <Route path="/system/user-manage" component={ManageForDoctor} />
                         ) : (
-                            <Route path="/system/user-manage" component={UserDoctor} />
+                            <Route path="/system/user-manage" component={ManageForUser} />
                         )}
-
-                        {/* <Route path="/system/user-doctor" component={UserDoctor} />
-
-                        <Route path="/system/user-status" component={UserManageAdmin} /> */}
 
                         <Route
                             component={() => {

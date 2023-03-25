@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
 // import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import './UserManageAdmin.scss';
-import { getAllUsers, createNewUserService, deleteUserService, editUserService } from '../../services/userService';
-import ModalCreateUser from './ModalCreateUser';
+import { getAllUsers, editUserService } from '../../services/userService';
 import ModalEditUser from './ModalEditUser';
-// import Header from '../Header/Header';
+import './ManageForAdmin.scss';
 
-class UserManage extends Component {
+class ManageForDoctor extends Component {
     constructor(props) {
         super(props);
         this.state = {
             arrUsers: [],
-            isOpenModalCreateUser: false,
             isOpenModalEditUser: false,
             dataEditUser: {
                 id: '',
@@ -28,18 +25,6 @@ class UserManage extends Component {
     async componentDidMount() {
         this.getAllUserFromReact();
     }
-
-    openAddNewUser = () => {
-        this.setState({
-            isOpenModalCreateUser: true,
-        });
-    };
-
-    cancelModelUser = () => {
-        this.setState({
-            isOpenModalCreateUser: false,
-        });
-    };
 
     openEditUser = (data) => {
         this.setState({
@@ -64,34 +49,6 @@ class UserManage extends Component {
         }
     };
 
-    createNewUser = async (data) => {
-        try {
-            let response = await createNewUserService(data);
-            if (response && response.errCode === 0) {
-                this.cancelModelUser();
-                this.getAllUserFromReact();
-                return response;
-            }
-            return response;
-        } catch (e) {
-            console.log(e);
-        }
-    };
-
-    handleDeleteUser = async (userId) => {
-        try {
-            let response = await deleteUserService(userId);
-            if (response && response.errCode !== 0) {
-                alert(response.errMessage);
-            } else {
-                // re-render if deleteUser successfully
-                this.getAllUserFromReact();
-            }
-        } catch (e) {
-            console.log(e);
-        }
-    };
-
     handleEditUser = async (data) => {
         try {
             console.log('what', data);
@@ -109,14 +66,13 @@ class UserManage extends Component {
 
     render() {
         let { userData, dataEditUser } = this.state;
+        if (userData) {
+            userData = userData.filter((item) => item.roleId === 'patient');
+        }
         return (
             <div className="users-container">
-                <div className="title text-content">Manage users</div>
+                <div className="title text-content">Manage for doctor</div>
                 <div className="m-3">
-                    {this.state.isOpenModalCreateUser && (
-                        <ModalCreateUser isOpen={this.state.isOpenModalCreateUser} cancelModelUser={this.cancelModelUser} createNewUser={this.createNewUser} />
-                    )}
-
                     {this.state.isOpenModalEditUser && (
                         <ModalEditUser
                             isOpen={this.state.isOpenModalEditUser}
@@ -125,25 +81,17 @@ class UserManage extends Component {
                             handleEditUser={this.handleEditUser}
                         />
                     )}
-
-                    <button
-                        className="btn btn-primary px-3"
-                        onClick={() => {
-                            this.openAddNewUser();
-                        }}
-                    >
-                        <i className="fas fa-plus"></i>
-                        <span className="mx-1">Add new user</span>
-                    </button>
-                    <button
-                        className="btn btn-primary px-3 mx-2"
-                        onClick={() => {
-                            this.openEditUser(this.props.userInfo);
-                        }}
-                    >
-                        <i className="fas fa-pencil-alt"></i>
-                        <span className="mx-1">Edit my infomation</span>
-                    </button>
+                    <div className="d-flex justify-content-between">
+                        <button
+                            className="btn btn-primary px-3"
+                            onClick={() => {
+                                this.openEditUser(this.props.userInfo);
+                            }}
+                        >
+                            <i className="fas fa-pencil-alt"></i>
+                            <span className="mx-1">Edit my infomation</span>
+                        </button>
+                    </div>
                 </div>
                 <div className="user-table mt-3 mx-1">
                     <table id="customers">
@@ -154,11 +102,12 @@ class UserManage extends Component {
                                 <th>First name</th>
                                 <th>Last name</th>
                                 <th>Adress</th>
-                                <th>Role</th>
-                                <th>Actions</th>
+                                <th>Details</th>
                             </tr>
                             {userData &&
                                 userData.map((item, index) => {
+                                    if (item.roleId === 'patient') {
+                                    }
                                     return (
                                         <tr key={item.id}>
                                             <td style={{ textAlign: 'center' }}>{index + 1}</td>
@@ -166,13 +115,9 @@ class UserManage extends Component {
                                             <td>{item.firstName}</td>
                                             <td>{item.lastName}</td>
                                             <td>{item.address}</td>
-                                            <td style={{ textTransform: 'capitalize' }}>{item.roleId}</td>
 
-                                            <td style={{ width: '150px' }}>
+                                            <td style={{ width: '50px' }}>
                                                 <button>Details</button>
-                                                <button className="mx-2" onClick={() => this.handleDeleteUser(item.id)}>
-                                                    Delete
-                                                </button>
                                             </td>
                                         </tr>
                                     );
@@ -183,11 +128,6 @@ class UserManage extends Component {
             </div>
         );
     }
-
-    // Life cycle
-    // 1. Run construct => init state
-    // 2. Did mount (set state)
-    // 3. Render
 }
 
 const mapStateToProps = (state) => {
@@ -201,4 +141,4 @@ const mapDispatchToProps = (dispatch) => {
     return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserManage);
+export default connect(mapStateToProps, mapDispatchToProps)(ManageForDoctor);
