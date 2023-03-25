@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import HomeHeader from './HomeHeader.jsx';
 import Specialty from './Section/Specialty.jsx';
 import './HomePage.scss';
-import MedicalFacility from './Section/MedicalFacility.jsx';
-import OutstandingDoctor from './Section/OutstandingDoctor.jsx';
 import About from './Section/About.jsx';
 import HomeFooter from './HomeFooter.jsx';
 
@@ -13,7 +11,7 @@ class HomePage extends Component {
         let settings = {
             dots: false,
             infinite: false,
-            speed: 1000,
+            speed: 500,
             slidesToShow: 4,
             slidesToScroll: 1,
         };
@@ -21,8 +19,6 @@ class HomePage extends Component {
             <div>
                 <HomeHeader />
                 <Specialty settings={settings} />
-                <MedicalFacility settings={settings} />
-                <OutstandingDoctor settings={settings} />
                 <About />
                 <HomeFooter />
             </div>

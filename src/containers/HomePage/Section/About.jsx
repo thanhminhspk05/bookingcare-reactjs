@@ -21,11 +21,11 @@ class About extends Component {
                         ></iframe>
                     </div>
                     <div className="about-right">
-                        <div className="mobile-app"></div>
                         <p className="description">
                             <span>Tải ứng dụng ngay tại đây: </span>
                             <a href="https://bookingcare.vn/app">https://bookingcare.vn/app</a>
                         </p>
+                        <div className="mobile-app"></div>
                     </div>
                 </div>
             </div>
