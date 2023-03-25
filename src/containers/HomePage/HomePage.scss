@@ -1,0 +1,169 @@
+.section {
+    height: 330px;
+    max-width: 1400px;
+    margin: 0 auto !important;
+
+    &.specialty,
+    &.outstanding-doctor {
+        background-color: #f5f5f5;
+        height: 380px;
+    }
+
+    .section-container {
+        margin: 0 100px;
+        display: flex;
+        flex-direction: column;
+
+        .section-header {
+            height: 60px;
+            margin-bottom: 30px;
+            padding-top: 30px;
+
+            .title-section {
+                font-size: 22px;
+                font-weight: 600;
+            }
+
+            .btn-section {
+                float: right;
+                padding: 10px 15px;
+                border: none;
+                outline: none;
+                display: block;
+                background: #ebebeb;
+                color: black;
+                text-transform: uppercase;
+                cursor: pointer;
+
+                &:hover {
+                    counter-reset: #fff;
+                    background-color: #f7d800;
+                }
+            }
+        }
+
+        .section-body {
+            .img-customize {
+                h5 {
+                    text-align: center;
+                }
+
+                .bg-image {
+                    width: 270px;
+                    height: 180px;
+                    background-position: center !important;
+                    background-repeat: no-repeat !important;
+                    background-size: cover !important;
+                    background-color: #eee !important;
+                    margin: 0 auto !important;
+                    margin-bottom: 20px !important;
+
+                    &.specialty {
+                        background: url('../../assets/specialty/co-xuong-khop.jpg');
+                    }
+                    &.facility {
+                        background: url('../../assets/facility/bv-cho-ray.jpg');
+                    }
+                    &.outstanding-doctor {
+                        background: url('../../assets/outstanding-doctor/bac-si.jpg');
+                        width: 120px;
+                        height: 120px;
+                        border-radius: 50%;
+                    }
+                    &.handbook {
+                        background: url('../../assets/handbook/cam-nang.png');
+                    }
+                }
+            }
+        }
+
+        .slick-prev {
+            top: 45% !important;
+            left: -20px !important;
+            height: 40px !important;
+            width: 30px !important;
+            background-color: #fff !important;
+            border: 2px solid #d7d7d7;
+
+            &:hover {
+                background: #eceaea !important;
+            }
+        }
+
+        .slick-prev:before,
+        .slick-next:before {
+            font-family: FontAwesome !important;
+            color: red !important;
+            opacity: 1 !important;
+        }
+
+        .slick-next {
+            top: 45% !important;
+            right: -20px !important;
+            height: 40px !important;
+            width: 30px !important;
+            background-color: #fff !important;
+            border: 2px solid #d7d7d7;
+
+            &:hover {
+                background: #eceaea !important;
+            }
+        }
+    }
+
+    &.about {
+        margin: 0 100px;
+        display: flex;
+        flex-direction: column;
+        height: 480px;
+
+        .section-container {
+            display: flex;
+            flex-direction: row;
+
+            .about-left {
+                width: 60%;
+                padding: 10px 0;
+
+                .title-section {
+                    font-size: 22px;
+                    font-weight: 600;
+                    margin-bottom: 10px;
+                }
+            }
+
+            .about-right {
+                width: 40%;
+                margin-top: 48px;
+                margin-left: 50px;
+
+                .description {
+                    font-size: 16px;
+                    font-weight: 600px;
+                    font-size: 20px;
+
+                    a {
+                        text-decoration: none;
+                        color: #45c3d2;
+                    }
+                }
+
+                .mobile-app {
+                    background: url('../../assets/about/mobile-app.jpg');
+                    width: 250px;
+                    height: 350px;
+                    background-repeat: no-repeat !important;
+                    background-size: cover !important;
+                    background-color: #eee !important;
+                }
+            }
+        }
+    }
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    background-color: #64b9e5;
+    padding-top: 13px;
+}

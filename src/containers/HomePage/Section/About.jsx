@@ -1,0 +1,47 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+// import { FormattedMessage } from 'react-intl';
+
+class About extends Component {
+    render() {
+        return (
+            <div className="section about">
+                <div className="section-container">
+                    <div className="about-left">
+                        <div className="title-section">Truyền thông nói về BookingCare</div>
+                        <iframe
+                            width="100%"
+                            height="400px"
+                            src="https://www.youtube.com/embed/FyDQljKtWnI"
+                            title="CÀ PHÊ KHỞI NGHIỆP VTV1 - BOOKINGCARE - HỆ THỐNG ĐẶT LỊCH KHÁM TRỰC TUYẾN"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen
+                        ></iframe>
+                    </div>
+                    <div className="about-right">
+                        <div className="mobile-app"></div>
+                        <p className="description">
+                            <span>Tải ứng dụng ngay tại đây: </span>
+                            <a href="https://bookingcare.vn/app">https://bookingcare.vn/app</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
+
+const mapStateToProps = (state) => {
+    return {
+        isLoggedIn: state.user.isLoggedIn,
+        language: state.app.language,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(About);

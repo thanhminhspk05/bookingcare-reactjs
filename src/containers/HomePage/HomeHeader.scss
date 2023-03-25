@@ -1,0 +1,203 @@
+.home-header-container {
+    width: 100%;
+    padding: 5px 15px;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: #eee;
+
+    .home-header-content {
+        max-width: 1280px;
+        margin: 0 auto;
+        height: 60px;
+        display: flex;
+
+        .left-content {
+            width: 30%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .header-logo {
+                background: url('../../assets/logo.svg') center center no-repeat;
+                height: 60%;
+                width: 60%;
+                cursor: pointer;
+            }
+
+            i {
+                font-size: 25px;
+                color: grey;
+                cursor: pointer;
+            }
+        }
+
+        .center-content {
+            width: 50%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+
+            .child-content {
+                .subs-title {
+                    font-weight: 400;
+                    font-size: 12px;
+                }
+            }
+        }
+
+        .right-content {
+            width: 20%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+
+            .support {
+                margin-left: 20px;
+                cursor: pointer;
+
+                i {
+                    color: #49bce2;
+                    margin-right: 5px;
+                }
+            }
+
+            .language {
+                display: flex;
+                font-weight: bold;
+                cursor: pointer;
+
+                .language-vi {
+                    margin-right: 10px;
+                    opacity: 0.2;
+
+                    &.active {
+                        opacity: 1;
+
+                        span {
+                            color: orange;
+                        }
+                    }
+
+                    &:hover {
+                        opacity: 0.8;
+                    }
+                }
+
+                .language-en {
+                    opacity: 0.2;
+
+                    &.active {
+                        opacity: 1;
+
+                        span {
+                            color: rgb(0, 157, 255);
+                        }
+                    }
+
+                    &:hover {
+                        opacity: 0.8;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.home-header-banner {
+    margin-top: 70px;
+    height: 485px;
+    background: url('../../assets/header-background.jpg') no-repeat;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    .content-up {
+        padding-top: 15px;
+        height: 70%;
+
+        h1 {
+            text-align: center;
+            text-shadow: 1px 1px 1px #333;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        h1:first-child {
+            margin-top: 40px;
+        }
+
+        .search {
+            width: fit-content;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px auto;
+            padding: 10px;
+            border-radius: 40px;
+            background-color: #f7d800;
+
+            i {
+                margin: 0 5px;
+            }
+
+            input {
+                width: 350px;
+                background: transparent;
+                outline: none;
+                border: none;
+            }
+        }
+    }
+
+    .content-down {
+        height: 30%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1));
+
+        .options {
+            margin: 20px 50px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+
+            .option-child {
+                width: 120px;
+
+                .icon-child {
+                    background-color: white;
+                    width: 40px;
+                    height: 40px;
+                    padding: 10px;
+                    border-radius: 50%;
+                    display: flex;
+                    text-align: center;
+                    justify-content: center;
+                    margin: 0 auto;
+                    cursor: pointer;
+
+                    i {
+                        color: #49bce2;
+                        font-size: 20px;
+                    }
+                }
+
+                .text-child {
+                    font-size: 16px;
+                    font-weight: 700;
+                    cursor: pointer;
+
+                    &:hover {
+                        color: #49bce2;
+                    }
+                }
+            }
+        }
+    }
+}
