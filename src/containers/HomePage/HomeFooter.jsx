@@ -8,7 +8,7 @@ class HomeFooter extends Component {
         return (
             <div className="footer">
                 <p>
-                    &copy; 2023 BookingCare. More infomation, please vitsit leave message to fanpage. &#8594;{' '}
+                    &copy; 2023 BookingCare. Để biết thêm thông tin chi tiết. Liên hệ: &#8594;{' '}
                     <a href="#" target="_blank">
                         Click here
                     </a>{' '}

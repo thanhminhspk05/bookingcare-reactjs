@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 // import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import './UserManage.scss';
+import './UserManageAdmin.scss';
 import { getAllUsers, createNewUserService, deleteUserService, editUserService } from '../../services/userService';
-import ModalUser from './ModalUser';
+import ModalCreateUser from './ModalCreateUser';
 import ModalEditUser from './ModalEditUser';
-import Header from '../Header/Header';
+// import Header from '../Header/Header';
 
 class UserManage extends Component {
     constructor(props) {
         super(props);
         this.state = {
             arrUsers: [],
-            isOpenModalUser: false,
+            isOpenModalCreateUser: false,
             isOpenModalEditUser: false,
             dataEditUser: {
                 id: '',
@@ -31,13 +31,13 @@ class UserManage extends Component {
 
     openAddNewUser = () => {
         this.setState({
-            isOpenModalUser: true,
+            isOpenModalCreateUser: true,
         });
     };
 
     cancelModelUser = () => {
         this.setState({
-            isOpenModalUser: false,
+            isOpenModalCreateUser: false,
         });
     };
 
@@ -112,9 +112,9 @@ class UserManage extends Component {
         return (
             <div className="users-container">
                 <div className="title text-content">Manage users</div>
-                <div className="m-1">
-                    {this.state.isOpenModalUser && (
-                        <ModalUser isOpen={this.state.isOpenModalUser} cancelModelUser={this.cancelModelUser} createNewUser={this.createNewUser} />
+                <div className="m-3">
+                    {this.state.isOpenModalCreateUser && (
+                        <ModalCreateUser isOpen={this.state.isOpenModalCreateUser} cancelModelUser={this.cancelModelUser} createNewUser={this.createNewUser} />
                     )}
 
                     {this.state.isOpenModalEditUser && (
@@ -125,6 +125,7 @@ class UserManage extends Component {
                             handleEditUser={this.handleEditUser}
                         />
                     )}
+
                     <button
                         className="btn btn-primary px-3"
                         onClick={() => {
@@ -134,36 +135,43 @@ class UserManage extends Component {
                         <i className="fas fa-plus"></i>
                         <span className="mx-1">Add new user</span>
                     </button>
+                    <button
+                        className="btn btn-primary px-3 mx-2"
+                        onClick={() => {
+                            this.openEditUser(this.props.userInfo);
+                        }}
+                    >
+                        <i className="fas fa-pencil-alt"></i>
+                        <span className="mx-1">Edit my infomation</span>
+                    </button>
                 </div>
                 <div className="user-table mt-3 mx-1">
                     <table id="customers">
                         <tbody>
                             <tr>
+                                <th style={{ width: '50px' }}>Number</th>
                                 <th>Email</th>
                                 <th>First name</th>
                                 <th>Last name</th>
                                 <th>Adress</th>
+                                <th>Role</th>
                                 <th>Actions</th>
                             </tr>
                             {userData &&
-                                userData.map((item) => {
+                                userData.map((item, index) => {
                                     return (
                                         <tr key={item.id}>
+                                            <td style={{ textAlign: 'center' }}>{index + 1}</td>
                                             <td>{item.email}</td>
                                             <td>{item.firstName}</td>
                                             <td>{item.lastName}</td>
                                             <td>{item.address}</td>
-                                            <td>
-                                                <button
-                                                    className="btn-edit"
-                                                    onClick={() => {
-                                                        this.openEditUser(item);
-                                                    }}
-                                                >
-                                                    <i className="fas fa-pencil-alt"></i>
-                                                </button>
-                                                <button className="btn-delete" onClick={() => this.handleDeleteUser(item.id)}>
-                                                    <i className="fas fa-trash"></i>
+                                            <td style={{ textTransform: 'capitalize' }}>{item.roleId}</td>
+
+                                            <td style={{ width: '150px' }}>
+                                                <button>Details</button>
+                                                <button className="mx-2" onClick={() => this.handleDeleteUser(item.id)}>
+                                                    Delete
                                                 </button>
                                             </td>
                                         </tr>
@@ -185,6 +193,7 @@ class UserManage extends Component {
 const mapStateToProps = (state) => {
     return {
         isLoggedIn: state.user.isLoggedIn,
+        userInfo: state.user.userInfo,
     };
 };
 

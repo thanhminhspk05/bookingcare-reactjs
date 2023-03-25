@@ -82,14 +82,14 @@ class ModalEditUser extends Component {
             <Modal
                 isOpen={this.props.isOpen}
                 toggle={() => {
-                    this.props.cancelModelUser();
+                    this.props.cancelModelEditUser();
                 }}
                 className="modal-user-container"
                 size="lg"
             >
                 <ModalHeader
                     toggle={() => {
-                        this.props.cancelModelUser();
+                        this.props.cancelModelEditUser();
                     }}
                 >
                     Edit user infomation
@@ -147,12 +147,26 @@ class ModalEditUser extends Component {
                             <input
                                 type="text"
                                 name="address"
-                                style={{ width: 'calc(200% + 10px)' }}
                                 onChange={(event) => {
                                     this.handleOnChangeInput(event);
                                 }}
                                 value={this.state.address}
                             />
+                        </div>
+                        <div className="input-container gender">
+                            <label>Role</label>
+                            <select
+                                name="roleId"
+                                onChange={(event) => {
+                                    this.handleOnChangeInput(event);
+                                }}
+                                style={{ padding: '5px 0' }}
+                                value={this.state.gender}
+                                required
+                            >
+                                <option value="doctor">Doctor</option>
+                                <option value="admin">Admin</option>
+                            </select>
                         </div>
                     </div>
                 </ModalBody>

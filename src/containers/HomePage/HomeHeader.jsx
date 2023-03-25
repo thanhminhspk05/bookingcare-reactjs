@@ -70,6 +70,13 @@ class HomeHeader extends Component {
                                     <FormattedMessage id="home-header.support" />
                                 </b>
                             </div>
+                            <div className="login">
+                                <button className="btn">
+                                    <a href="/login" className="btn">
+                                        Đăng nhập
+                                    </a>
+                                </button>
+                            </div>
                             <div className="language">
                                 <div className={language === LANGUAGES.VI ? 'language-vi active' : 'language-vi'}>
                                     <span

@@ -1,5 +1,5 @@
 .login-background {
-    background: linear-gradient(135deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
+    background: #f0f2f5;
     height: 100vh;
 
     .login-container {
@@ -22,11 +22,15 @@
                 font-weight: 600;
                 font-size: 24px;
                 text-align: center;
-                padding-top: 10px;
+                padding: 10px 0px;
             }
 
             .login-input {
-                margin: 7px 0;
+                margin: 10px 0;
+
+                input {
+                    padding: 14px 16px;
+                }
 
                 .custom-input-password {
                     position: relative;
@@ -42,7 +46,7 @@
             .btn-login {
                 width: 100%;
                 height: 35px;
-                margin: 10px 0;
+                margin: 15px 0;
                 border-radius: 15px;
                 outline: none;
                 border: none;
@@ -51,13 +55,14 @@
             }
 
             .forgot-password {
-                font-size: 12px;
+                font-size: 15px;
+                margin-bottom: 15px;
             }
 
             .social-login {
                 display: flex;
                 width: 130px;
-                margin: 0 auto;
+                margin: 10px auto;
                 justify-content: space-between;
 
                 .google {
@@ -70,6 +75,7 @@
                     justify-content: center;
                     align-items: center;
                     color: white;
+                    cursor: pointer;
                 }
 
                 .facebook {
@@ -82,6 +88,7 @@
                     justify-content: center;
                     align-items: center;
                     color: white;
+                    cursor: pointer;
                 }
             }
         }

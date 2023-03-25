@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import UserManage from '../containers/System/UserManage.jsx';
-import UserRedux from '../containers/System/UserRedux.jsx';
+import UserManageAdmin from '../containers/System/UserManageAdmin.jsx';
+import UserDoctor from '../containers/System/UserDoctor.jsx';
 import { changeLanguageApp } from '../store/actions/appActions';
 import Header from '../containers/Header/Header.js';
 class System extends Component {
@@ -10,14 +10,23 @@ class System extends Component {
         this.props.changeLanguageAppRedux(language);
     }
     render() {
-        const { systemMenuPath } = this.props;
+        let { systemMenuPath } = this.props;
+        let roleId = this.props.userInfo.roleId;
+        console.log(roleId);
         return (
             <div className="system-container">
                 {this.props.isLoggedIn && <Header />}
                 <div className="system-list">
                     <Switch>
-                        <Route path="/system/user-manage" component={UserManage} />
-                        <Route path="/system/user-redux" component={UserRedux} />
+                        {roleId === 'admin' ? (
+                            <Route path="/system/user-manage" component={UserManageAdmin} />
+                        ) : (
+                            <Route path="/system/user-manage" component={UserDoctor} />
+                        )}
+
+                        {/* <Route path="/system/user-doctor" component={UserDoctor} />
+
+                        <Route path="/system/user-status" component={UserManageAdmin} /> */}
 
                         <Route
                             component={() => {
@@ -36,6 +45,7 @@ const mapStateToProps = (state) => {
         systemMenuPath: state.app.systemMenuPath,
         isLoggedIn: state.user.isLoggedIn,
         language: state.app.language,
+        userInfo: state.user.userInfo,
     };
 };
 

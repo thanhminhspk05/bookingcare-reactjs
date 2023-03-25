@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
-class ModalUser extends Component {
+class ModalCreateUser extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -12,13 +12,14 @@ class ModalUser extends Component {
             firstName: '',
             lastName: '',
             address: '',
+            roleId: '',
             errCode: '',
             errMessage: '',
         };
     }
 
     clearUserInput = () => {
-        let emptyState = { email: '', password: '', firstName: '', lastName: '', address: '', errCode: '', errMessage: '' };
+        let emptyState = { email: '', password: '', firstName: '', lastName: '', address: '', errCode: '', errMessage: '', roleId: '' };
         this.setState({
             ...emptyState,
         });
@@ -138,12 +139,26 @@ class ModalUser extends Component {
                             <input
                                 type="text"
                                 name="address"
-                                style={{ width: 'calc(200% + 10px)' }}
                                 onChange={(event) => {
                                     this.handleOnChangeInput(event);
                                 }}
                                 value={this.state.address}
                             />
+                        </div>
+                        <div className="input-container gender">
+                            <label>Role</label>
+                            <select
+                                name="roleId"
+                                onChange={(event) => {
+                                    this.handleOnChangeInput(event);
+                                }}
+                                style={{ padding: '5px 0' }}
+                                value={this.state.gender}
+                                required
+                            >
+                                <option value="doctor">Doctor</option>
+                                <option value="admin">Admin</option>
+                            </select>
                         </div>
                     </div>
                 </ModalBody>
@@ -180,4 +195,4 @@ const mapDispatchToProps = (dispatch) => {
     return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ModalUser);
+export default connect(mapStateToProps, mapDispatchToProps)(ModalCreateUser);

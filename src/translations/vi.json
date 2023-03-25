@@ -24,7 +24,7 @@
     },
     "menu": {
         "admin": {
-            "manage-user": "Người dùng",
+            "manage-user": "Quản lý người dùng",
             "manage-doctor": "Quản lý bác sỹ",
             "manage-admin": "Quản lý admin",
             "crud": "CRUD user",

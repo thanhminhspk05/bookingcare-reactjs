@@ -4,8 +4,6 @@ import { push } from 'connected-react-router';
 import * as actions from '../../store/actions';
 import './Login.scss';
 import { handleLoginService } from '../../services/userService';
-import { userLoginSuccess } from '../../store/actions';
-// import { FormattedMessage } from 'react-intl';
 
 class Login extends Component {
     constructor(props) {
@@ -55,19 +53,18 @@ class Login extends Component {
 
     render() {
         let { isShowPassword } = this.state;
-        console.log(this.state.errMessage);
+
         return (
             <div className="login-background">
                 <div className="login-container">
                     <div className="login-content row">
                         <div className="col-12 text-login">Login</div>
                         <div className="col-12 form-ground login-input">
-                            <label htmlFor="">Username:</label>
                             <input
                                 type="text"
                                 name="username"
                                 className="form-control"
-                                placeholder="Enter your username"
+                                placeholder="Email address or phone number"
                                 value={this.state.username}
                                 onChange={(e) => {
                                     this.handleOnChangeInput(e);
@@ -75,13 +72,12 @@ class Login extends Component {
                             />
                         </div>
                         <div className="col-12 form-ground login-input">
-                            <label htmlFor="">Password:</label>
                             <div className="custom-input-password">
                                 <input
                                     type={isShowPassword ? 'text' : 'password'}
                                     name="password"
                                     className="form-control"
-                                    placeholder="Enter your password"
+                                    placeholder="Password"
                                     value={this.state.password}
                                     onChange={(e) => {
                                         this.handleOnChangeInput(e);
@@ -110,14 +106,21 @@ class Login extends Component {
                             </button>
                         </div>
                         <div className="col-12">
-                            <span className="forget-password">Forgot your password?</span>
+                            <div className="forgot-password">
+                                <a href="/">Forgot your password?</a>
+                            </div>
                         </div>
                         <div className="col-12 text-center">
-                            <span className="text-other-login">Or login with:</span>
+                            <div className="text-other-login">Or login with:</div>
                         </div>
                         <div className="col-12 social-login">
                             <i className="fab fa-google-plus-g google"></i>
                             <i className="fab fa-facebook-f facebook"></i>
+                        </div>
+                        <div className="register text-center">
+                            <div className="">
+                                Haven't account? <a href="/register">Register</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -135,10 +138,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         navigate: (path) => dispatch(push(path)),
-        // userLoginFail: () => dispatch(actions.userLoginSuccess()),
         userLoginSuccess: (userInfo) => dispatch(actions.userLoginSuccess(userInfo)),
-        // adminLoginSuccess: (adminInfo) => dispatch(actions.adminLoginSuccess(adminInfo)),
-        // adminLoginFail: () => dispatch(actions.adminLoginFail()),
     };
 };
 

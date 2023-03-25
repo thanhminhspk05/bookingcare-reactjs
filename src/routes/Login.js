@@ -140,7 +140,14 @@ class Login extends Component {
                         )}
 
                         <div className="form-group login">
-                            <input ref={this.btnLogin} id="btnLogin" type="submit" className="btn" value={LanguageUtils.getMessageByKey('login.login', lang)} onClick={this.processLogin} />
+                            <input
+                                ref={this.btnLogin}
+                                id="btnLogin"
+                                type="submit"
+                                className="btn"
+                                value={LanguageUtils.getMessageByKey('login.login', lang)}
+                                onClick={this.processLogin}
+                            />
                         </div>
                     </div>
                 </div>

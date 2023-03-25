@@ -3,19 +3,24 @@ import { connect } from 'react-redux';
 
 import * as actions from '../../store/actions';
 import Navigator from '../../components/Navigator';
-import { adminMenu } from './menuApp';
+import { adminMenu, doctorMenu } from './menuApp';
 import './Header.scss';
 import { changeLanguageApp } from '../../store/actions/appActions';
-import { LANGUAGES } from '../../utils';
+import { LANGUAGES, USER_ROLE } from '../../utils';
 import { FormattedMessage } from 'react-intl';
 
 class Header extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { menuApp: {} };
+    }
     changeLanguage(language) {
         this.props.changeLanguageAppRedux(language);
     }
+
     render() {
-        let { firstName, lastName } = this.props.userInfo;
-        const { processLogout, language } = this.props;
+        let { firstName } = this.props.userInfo;
+        const { processLogout, language, userInfo } = this.props;
         return (
             <div className="header-container">
                 <div className="header-tabs-container">
