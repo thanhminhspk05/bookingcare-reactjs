@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 // import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import { getAllUsers, editUserService } from '../../services/userService';
+import { getAllUsers } from '../../services/userService';
 import ModalEditUser from './ModalEditUser';
+import ModalDiagnose from './ModalDiagnose';
 import './ManageForAdmin.scss';
 
 class ManageForDoctor extends Component {
@@ -11,14 +12,9 @@ class ManageForDoctor extends Component {
         this.state = {
             arrUsers: [],
             isOpenModalEditUser: false,
-            dataEditUser: {
-                id: '',
-                email: '',
-                password: '',
-                firstName: '',
-                lastName: '',
-                address: '',
-            },
+            isOpenModalDiagnose: false,
+            dataEditUser: {},
+            dataDiagnose: {},
         };
     }
 
@@ -26,20 +22,7 @@ class ManageForDoctor extends Component {
         this.getAllUserFromReact();
     }
 
-    openEditUser = (data) => {
-        this.setState({
-            isOpenModalEditUser: true,
-            dataEditUser: data,
-        });
-    };
-
-    cancelModelEditUser = () => {
-        this.setState({
-            isOpenModalEditUser: false,
-        });
-    };
-
-    // service call api - re-render the component
+    // RE-RENDER LIST USER
     getAllUserFromReact = async () => {
         let response = await getAllUsers('ALL');
         if (response && response.errCode === 0) {
@@ -49,23 +32,35 @@ class ManageForDoctor extends Component {
         }
     };
 
-    handleEditUser = async (data) => {
-        try {
-            console.log('what', data);
-            let response = await editUserService(data);
-            if (response && response.errCode === 0) {
-                this.cancelModelUser();
-                this.getAllUserFromReact();
-                return true;
-            }
-            return false;
-        } catch (e) {
-            console.log(e);
-        }
+    openEditUser = (data) => {
+        this.setState({
+            isOpenModalEditUser: true,
+            dataEditUser: data,
+        });
+    };
+
+    cancelModalEditUser = () => {
+        this.setState({
+            isOpenModalDiagnose: false,
+        });
+    };
+
+    openModalDiagnose = (data) => {
+        this.setState({
+            isOpenModalDiagnose: true,
+            dataDiagnose: data,
+        });
+    };
+
+    cancelModalDiagnose = () => {
+        this.setState({
+            isOpenModalDiagnose: false,
+        });
     };
 
     render() {
-        let { userData, dataEditUser } = this.state;
+        let { userData, dataEditUser, dataDiagnose } = this.state;
+        console.log(this.state.dataDiagnose);
         if (userData) {
             userData = userData.filter((item) => item.roleId === 'patient');
         }
@@ -81,6 +76,10 @@ class ManageForDoctor extends Component {
                             handleEditUser={this.handleEditUser}
                         />
                     )}
+                    {this.state.isOpenModalDiagnose && (
+                        <ModalDiagnose isOpen={this.state.isOpenModalDiagnose} cancelModalDiagnose={this.cancelModalDiagnose} dataDiagnose={dataDiagnose} />
+                    )}
+
                     <div className="d-flex justify-content-between">
                         <button
                             className="btn btn-primary px-3"
@@ -102,7 +101,7 @@ class ManageForDoctor extends Component {
                                 <th>First name</th>
                                 <th>Last name</th>
                                 <th>Adress</th>
-                                <th>Details</th>
+                                <th style={{ width: '130px' }}>Details</th>
                             </tr>
                             {userData &&
                                 userData.map((item, index) => {
@@ -116,8 +115,14 @@ class ManageForDoctor extends Component {
                                             <td>{item.lastName}</td>
                                             <td>{item.address}</td>
 
-                                            <td style={{ width: '50px' }}>
-                                                <button>Details</button>
+                                            <td>
+                                                <button
+                                                    onClick={() => {
+                                                        this.openModalDiagnose(item);
+                                                    }}
+                                                >
+                                                    Diagnose
+                                                </button>
                                             </td>
                                         </tr>
                                     );

@@ -73,7 +73,7 @@ class ModalCreateUser extends Component {
             <Modal
                 isOpen={this.props.isOpen}
                 toggle={() => {
-                    this.props.cancelModelUser();
+                    this.props.cancelModalCreateUser();
                 }}
                 className="modal-user-container"
                 size="lg" // 3 options: sm , lg , xl
@@ -81,7 +81,7 @@ class ModalCreateUser extends Component {
             >
                 <ModalHeader
                     toggle={() => {
-                        this.props.cancelModelUser();
+                        this.props.cancelModalCreateUser();
                     }}
                 >
                     Create new user
@@ -176,7 +176,7 @@ class ModalCreateUser extends Component {
                         color="secondary"
                         className="px-3"
                         onClick={() => {
-                            this.props.cancelModelUser();
+                            this.props.cancelModalCreateUser();
                         }}
                     >
                         Close

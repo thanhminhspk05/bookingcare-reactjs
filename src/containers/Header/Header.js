@@ -19,8 +19,8 @@ class Header extends Component {
     }
 
     render() {
-        let { firstName } = this.props.userInfo;
-        const { processLogout, language, userInfo } = this.props;
+        let { firstName, lastName } = this.props.userInfo;
+        const { processLogout, language } = this.props;
         return (
             <div className="header-container">
                 <div className="header-tabs-container">
@@ -30,7 +30,7 @@ class Header extends Component {
                 <div className="language-logout">
                     <span className="welcome">
                         <FormattedMessage id="home-header.welcome" />
-                        {`, ${firstName}`}
+                        {`, ${firstName} ${lastName}`}
                     </span>
 
                     <span className={language === LANGUAGES.VI ? 'language-vi active' : 'language-vi'} onClick={() => this.changeLanguage(LANGUAGES.VI)}>

@@ -14,7 +14,7 @@ class Register extends Component {
             email: '',
             address: '',
             phone: '',
-            birthday: '01/01/1901',
+            birthday: '01/01/1950',
             gender: 'male',
             password: '',
             roleId: 'patient',
@@ -45,7 +45,6 @@ class Register extends Component {
 
         if (isValid) {
             let response = await createNewUserService(this.state);
-            console.log(response);
             this.setState({
                 errCode: response.errCode,
                 errMessage: response.errMessage,
@@ -62,7 +61,7 @@ class Register extends Component {
                         <div className="row d-flex justify-content-center align-items-center h-100">
                             <div className="col-12 col-md-9 col-lg-7 col-xl-6">
                                 <div className="card">
-                                    <div className="card-body p-5">
+                                    <div className="card-body p-4">
                                         <h2 className="title">Create an account</h2>
                                         <div className="form-outline mb-4">
                                             <label className="form-label">Email address</label>
@@ -180,7 +179,7 @@ class Register extends Component {
                                                 />
                                             </div>
 
-                                            <div className="form-check d-flex justify-content-center mb-4">
+                                            <div className="form-check d-flex  mb-4">
                                                 <input className="form-check-input me-2" type="checkbox" value="" required />
                                                 <label className="form-check-label">
                                                     I agree all statements in{' '}
@@ -204,7 +203,7 @@ class Register extends Component {
 
                                             <p className="text-center text-muted mt-4 mb-0">
                                                 Have already an account?{' '}
-                                                <a href="#!" className="fw-bold text-body">
+                                                <a href="/login" className="fw-bold text-body">
                                                     <u>Login here</u>
                                                 </a>
                                             </p>

@@ -5,56 +5,33 @@ import './ManageForAdmin.scss';
 import { getAllUsers, createNewUserService, deleteUserService, editUserService } from '../../services/userService';
 import ModalCreateUser from './ModalCreateUser';
 import ModalEditUser from './ModalEditUser';
+import ModalDetails from './ModalDetails';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import TableUsers from './TableUsers';
+import Pagination from './Pagination';
 // import Header from '../Header/Header';
 
 class ManageForAdmin extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            arrUsers: [],
             isOpenModalCreateUser: false,
             isOpenModalEditUser: false,
-            dataEditUser: {
-                id: '',
-                email: '',
-                password: '',
-                firstName: '',
-                lastName: '',
-                address: '',
-            },
+            isOpenModalDetails: false,
+            dataEditUser: {},
+            dataDetailsUser: {},
+            userData: [],
+            currentPage: 1,
+            usersPerPage: 10,
         };
     }
 
     async componentDidMount() {
-        this.getAllUserFromReact();
+        await this.getAllUserFromReact();
     }
 
-    openAddNewUser = () => {
-        this.setState({
-            isOpenModalCreateUser: true,
-        });
-    };
-
-    cancelModelUser = () => {
-        this.setState({
-            isOpenModalCreateUser: false,
-        });
-    };
-
-    openEditUser = (data) => {
-        this.setState({
-            isOpenModalEditUser: true,
-            dataEditUser: data,
-        });
-    };
-
-    cancelModelEditUser = () => {
-        this.setState({
-            isOpenModalEditUser: false,
-        });
-    };
-
-    // service call api - re-render the component
+    // RE-RENDER LIST USER
     getAllUserFromReact = async () => {
         let response = await getAllUsers('ALL');
         if (response && response.errCode === 0) {
@@ -64,12 +41,20 @@ class ManageForAdmin extends Component {
         }
     };
 
+    // CREATE USER
+    openAddNewUser = () => {
+        this.setState({
+            isOpenModalCreateUser: true,
+        });
+    };
+
     createNewUser = async (data) => {
         try {
             let response = await createNewUserService(data);
             if (response && response.errCode === 0) {
-                this.cancelModelUser();
+                this.cancelModalCreateUser();
                 this.getAllUserFromReact();
+                toast.success('Created information successfully!');
                 return response;
             }
             return response;
@@ -78,27 +63,33 @@ class ManageForAdmin extends Component {
         }
     };
 
-    handleDeleteUser = async (userId) => {
-        try {
-            let response = await deleteUserService(userId);
-            if (response && response.errCode !== 0) {
-                alert(response.errMessage);
-            } else {
-                // re-render if deleteUser successfully
-                this.getAllUserFromReact();
-            }
-        } catch (e) {
-            console.log(e);
-        }
+    cancelModalCreateUser = () => {
+        this.setState({
+            isOpenModalCreateUser: false,
+        });
+    };
+
+    // UPDATE USER
+    openEditUser = (data) => {
+        this.setState({
+            isOpenModalEditUser: true,
+            dataEditUser: data,
+        });
+    };
+
+    cancelModalEditUser = () => {
+        this.setState({
+            isOpenModalEditUser: false,
+        });
     };
 
     handleEditUser = async (data) => {
         try {
-            console.log('what', data);
             let response = await editUserService(data);
             if (response && response.errCode === 0) {
-                this.cancelModelUser();
+                this.cancelModalCreateUser();
                 this.getAllUserFromReact();
+                toast.success('Updated information successfully!');
                 return true;
             }
             return false;
@@ -107,23 +98,67 @@ class ManageForAdmin extends Component {
         }
     };
 
+    // DELETE USER
+    handleDeleteUser = async (userId) => {
+        try {
+            let response = await deleteUserService(userId);
+            if (response && response.errCode !== 0) {
+                alert(response.errMessage);
+            } else {
+                // re-render if deleteUser successfully
+                this.getAllUserFromReact();
+                toast.success('Deleted information successfully!');
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+    // FULL INFOMATION USER
+    openDetailsUser = (data) => {
+        this.setState({
+            isOpenModalDetails: true,
+            dataDetailsUser: data,
+        });
+    };
+
+    cancelDetailsUser = () => {
+        this.setState({ isOpenModalDetails: false });
+    };
+
+    // CHANGE PAGE
+    paginate = (numberPage) => {
+        this.setState({
+            currentPage: numberPage,
+        });
+    };
+
     render() {
-        let { userData, dataEditUser } = this.state;
-        console.log(this.props.userInfo);
+        let { dataEditUser, dataDetailsUser, userData, currentPage, usersPerPage } = this.state;
+        let indexOfLastUser = currentPage * usersPerPage;
+        let indexOfFirstUser = indexOfLastUser - usersPerPage;
+        let currentUsers = userData.slice(indexOfFirstUser, indexOfLastUser);
+
         return (
             <div className="users-container">
                 <div className="title text-content">Manage for admin</div>
                 <div className="m-3">
-                    <ModalCreateUser isOpen={this.state.isOpenModalCreateUser} cancelModelUser={this.cancelModelUser} createNewUser={this.createNewUser} />
+                    <ModalCreateUser
+                        isOpen={this.state.isOpenModalCreateUser}
+                        cancelModalCreateUser={this.cancelModalCreateUser}
+                        createNewUser={this.createNewUser}
+                    />
 
                     {this.state.isOpenModalEditUser && (
                         <ModalEditUser
                             isOpen={this.state.isOpenModalEditUser}
-                            cancelModelEditUser={this.cancelModelEditUser}
+                            cancelModalEditUser={this.cancelModalEditUser}
                             dataEditUser={dataEditUser}
                             handleEditUser={this.handleEditUser}
                         />
                     )}
+
+                    <ModalDetails isOpen={this.state.isOpenModalDetails} cancelDetailsUser={this.cancelDetailsUser} dataDetailsUser={dataDetailsUser} />
 
                     <button
                         className="btn btn-primary px-3"
@@ -145,40 +180,27 @@ class ManageForAdmin extends Component {
                     </button>
                 </div>
                 <div className="user-table mt-3 mx-1">
-                    <table id="customers">
-                        <tbody>
-                            <tr>
-                                <th style={{ width: '50px' }}>Number</th>
-                                <th>Email</th>
-                                <th>First name</th>
-                                <th>Last name</th>
-                                <th>Adress</th>
-                                <th>Role</th>
-                                <th>Actions</th>
-                            </tr>
-                            {userData &&
-                                userData.map((item, index) => {
-                                    return (
-                                        <tr key={item.id}>
-                                            <td style={{ textAlign: 'center' }}>{index + 1}</td>
-                                            <td>{item.email}</td>
-                                            <td>{item.firstName}</td>
-                                            <td>{item.lastName}</td>
-                                            <td>{item.address}</td>
-                                            <td style={{ textTransform: 'capitalize' }}>{item.roleId}</td>
-
-                                            <td style={{ width: '150px' }}>
-                                                <button>Details</button>
-                                                <button className="mx-2" onClick={() => this.handleDeleteUser(item.id)}>
-                                                    Delete
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    );
-                                })}
-                        </tbody>
-                    </table>
+                    <TableUsers currentUsers={currentUsers} openDetailsUser={this.openDetailsUser} handleDeleteUser={this.handleDeleteUser} />
+                    <div className="d-flex justify-content-center">
+                        <button style={{ padding: '4px 8px', border: 'none', margin: '20px 5px', background: '#ccc' }}>Previous</button>
+                        <Pagination usersPerPage={usersPerPage} totalUsers={userData.length} paginate={this.paginate} />
+                        <button style={{ padding: '4px 8px', border: 'none', margin: '20px 5px', background: '#ccc' }}>Next</button>
+                    </div>
                 </div>
+                <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                />
+                {/* Same as */}
+                <ToastContainer />
             </div>
         );
     }

@@ -2,28 +2,33 @@ import React, { Component } from 'react';
 // import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { getAllUsers, editUserService } from '../../services/userService';
-import './ManageForUser.scss';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class ManageForUser extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: '',
             firstName: '',
             lastName: '',
             email: '',
             address: '',
             phone: '',
-            password: '',
             birthday: '',
             gender: '',
-            healthstatus: '',
+            statusHealth: '',
+            diagnose: '',
+            prescription: '',
         };
     }
 
     async componentDidMount() {
         let userInfo = this.props.userInfo;
-        console.log(userInfo);
+        userInfo = await getAllUsers(userInfo.id);
+        userInfo = userInfo.user;
         this.setState({
+            id: userInfo.id,
             firstName: userInfo.firstName,
             lastName: userInfo.lastName,
             email: userInfo.email,
@@ -31,6 +36,9 @@ class ManageForUser extends Component {
             phone: userInfo.phone,
             birthday: userInfo.birthday,
             gender: userInfo.gender,
+            statusHealth: userInfo.statusHealth,
+            diagnose: userInfo.diagnose,
+            prescription: userInfo.prescription,
         });
     }
 
@@ -40,26 +48,31 @@ class ManageForUser extends Component {
         });
     }
 
-    // service call api - re-render the component
-    getAllUserFromReact = async () => {
-        let response = await getAllUsers('ALL');
-        if (response && response.errCode === 0) {
-            this.setState({
-                userData: response.user,
-            });
-        }
-    };
-
-    handleEditUser = async () => {
-        console.log(this.state);
+    handleUpdateInfo = async () => {
         try {
             let response = await editUserService(this.state);
+
             if (response && response.errCode === 0) {
-                this.cancelModelUser();
-                this.getAllUserFromReact();
-                return true;
+                let newData = await getAllUsers(this.state.id);
+                if (newData && newData.errCode === 0) {
+                    newData = newData.user;
+                    console.log('new', newData);
+                    this.setState({
+                        id: newData.id,
+                        firstName: newData.firstName,
+                        lastName: newData.lastName,
+                        email: newData.email,
+                        address: newData.address,
+                        phone: newData.phone,
+                        birthday: newData.birthday,
+                        gender: newData.gender,
+                        statusHealth: newData.statusHealth,
+                        diagnose: newData.diagnose,
+                        prescription: newData.prescription,
+                    });
+                }
             }
-            return false;
+            toast.success('Updated information successfully!');
         } catch (e) {
             console.log(e);
         }
@@ -68,9 +81,9 @@ class ManageForUser extends Component {
     render() {
         console.log(this.state);
         return (
-            <div className="container-form">
+            <div className="container-for" style={{ width: '80%', maxWidth: '550px', margin: '30px auto', border: '1px solid #ccc', padding: '30px' }}>
                 <form>
-                    <h2 className="title">Update user infomation</h2>
+                    <h2 className="title">User infomation</h2>
                     <div className="form-outline mb-2">
                         <label className="form-label">Email address</label>
                         <input
@@ -139,64 +152,76 @@ class ManageForUser extends Component {
                             required
                         />
                     </div>
-                    <div className="d-flex form-outline mb-2">
-                        <div className="birthday w-50">
-                            <label className="form-label">Birthday:</label>
-                            <input
-                                type="date"
-                                name="birthday"
-                                onChange={(event) => {
-                                    this.handleOnChangeInput(event);
-                                }}
-                                value={this.state.birthday}
-                                required
-                            />
-                        </div>
-                        <div className="gender">
-                            <label className="form-label">Gender:</label>
-                            <select
-                                name="gender"
-                                className="mx-2"
-                                onChange={(event) => {
-                                    this.handleOnChangeInput(event);
-                                }}
-                                value={this.state.gender}
-                                required
-                            >
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                    </div>
 
                     <div className="form-outline mb-4">
                         <label className="form-label">Health status</label>
                         <textarea
-                            name="healthstatus"
+                            name="statusHealth"
                             className="form-control form-control-lg"
                             onChange={(event) => {
                                 this.handleOnChangeInput(event);
                             }}
-                            value={this.state.healthstatus}
-                            rows="6"
+                            value={this.state.statusHealth || ''}
+                            rows="3"
                             cols="50"
                             required
+                        />
+                    </div>
+                    <div className="form-outline mb-4">
+                        <label className="form-label">Diagnose</label>
+                        <textarea
+                            name="diagnose"
+                            className="form-control form-control-lg"
+                            onChange={(event) => {
+                                this.handleOnChangeInput(event);
+                            }}
+                            value={this.state.diagnose || ''}
+                            rows="2"
+                            cols="50"
+                            disabled
+                        />
+                    </div>
+                    <div className="form-outline mb-4">
+                        <label className="form-label">Prescription</label>
+                        <textarea
+                            name="prescription"
+                            className="form-control form-control-lg"
+                            onChange={(event) => {
+                                this.handleOnChangeInput(event);
+                            }}
+                            value={this.state.prescription || ''}
+                            rows="4"
+                            cols="50"
+                            disabled
                         />
                     </div>
 
                     <div className="d-flex justify-content-center">
                         <button
-                            type="submit"
+                            type="button"
                             className="btn btn-success btn-block btn-lg gradient-custom-4 text-body px-3 "
                             onClick={() => {
-                                this.handleEditUser();
+                                this.handleUpdateInfo();
                             }}
                         >
                             Update
                         </button>
                     </div>
                 </form>
+                <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                />
+                {/* Same as */}
+                <ToastContainer />
             </div>
         );
     }

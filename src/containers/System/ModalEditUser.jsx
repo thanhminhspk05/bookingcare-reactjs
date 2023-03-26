@@ -71,7 +71,7 @@ class ModalEditUser extends Component {
         console.log(this.props);
         if (isValid && data) {
             this.props.handleEditUser(data);
-            this.props.cancelModelEditUser();
+            this.props.cancelModalEditUser();
         }
     };
 
@@ -80,14 +80,14 @@ class ModalEditUser extends Component {
             <Modal
                 isOpen={this.props.isOpen}
                 toggle={() => {
-                    this.props.cancelModelEditUser();
+                    this.props.cancelModalEditUser();
                 }}
                 className="modal-user-container"
                 size="lg"
             >
                 <ModalHeader
                     toggle={() => {
-                        this.props.cancelModelEditUser();
+                        this.props.cancelModalEditUser();
                     }}
                 >
                     Edit user infomation
@@ -182,7 +182,7 @@ class ModalEditUser extends Component {
                         color="secondary"
                         className="px-3"
                         onClick={() => {
-                            this.props.cancelModelEditUser();
+                            this.props.cancelModalEditUser();
                         }}
                     >
                         Close
