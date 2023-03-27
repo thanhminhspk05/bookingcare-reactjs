@@ -5,16 +5,20 @@ import { getAllUsers } from '../../services/userService';
 import ModalEditUser from './ModalEditUser';
 import ModalDiagnose from './ModalDiagnose';
 import './ManageForAdmin.scss';
+import TableUsers from './TableUsers';
+import Pagination from './Pagination';
 
 class ManageForDoctor extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            arrUsers: [],
             isOpenModalEditUser: false,
             isOpenModalDiagnose: false,
             dataEditUser: {},
             dataDiagnose: {},
+            userData: [],
+            currentPage: 1,
+            usersPerPage: 10,
         };
     }
 
@@ -25,9 +29,10 @@ class ManageForDoctor extends Component {
     // RE-RENDER LIST USER
     getAllUserFromReact = async () => {
         let response = await getAllUsers('ALL');
+        let newuserData = response.user.filter((item) => item.roleId === 'patient');
         if (response && response.errCode === 0) {
             this.setState({
-                userData: response.user,
+                userData: newuserData,
             });
         }
     };
@@ -58,12 +63,30 @@ class ManageForDoctor extends Component {
         });
     };
 
+    // CHANGE PAGE
+    paginate = (numberPage) => {
+        this.setState({
+            currentPage: numberPage,
+        });
+    };
+
+    prevPage = () => {
+        this.setState({
+            currentPage: this.state.currentPage - 1,
+        });
+    };
+
+    nextPage = () => {
+        this.setState({
+            currentPage: this.state.currentPage + 1,
+        });
+    };
+
     render() {
-        let { userData, dataEditUser, dataDiagnose } = this.state;
-        console.log(this.state.dataDiagnose);
-        if (userData) {
-            userData = userData.filter((item) => item.roleId === 'patient');
-        }
+        let { userData, dataEditUser, dataDiagnose, currentPage, usersPerPage } = this.state;
+        let indexOfLastUser = currentPage * usersPerPage;
+        let indexOfFirstUser = indexOfLastUser - usersPerPage;
+        let currentUsers = userData.slice(indexOfFirstUser, indexOfLastUser);
         return (
             <div className="users-container">
                 <div className="title text-content">Manage for doctor</div>
@@ -93,42 +116,71 @@ class ManageForDoctor extends Component {
                     </div>
                 </div>
                 <div className="user-table mt-3 mx-1">
-                    <table id="customers">
-                        <tbody>
-                            <tr>
-                                <th style={{ width: '50px' }}>Number</th>
-                                <th>Email</th>
-                                <th>First name</th>
-                                <th>Last name</th>
-                                <th>Adress</th>
-                                <th style={{ width: '130px' }}>Details</th>
-                            </tr>
-                            {userData &&
-                                userData.map((item, index) => {
-                                    if (item.roleId === 'patient') {
-                                    }
-                                    return (
-                                        <tr key={item.id}>
-                                            <td style={{ textAlign: 'center' }}>{index + 1}</td>
-                                            <td>{item.email}</td>
-                                            <td>{item.firstName}</td>
-                                            <td>{item.lastName}</td>
-                                            <td>{item.address}</td>
+                    <TableUsers currentUsers={currentUsers} openDetailsUser={this.openDetailsUser} handleDeleteUser={this.handleDeleteUser} />
+                    <div className="d-flex justify-content-center">
+                        {currentPage > 1 ? (
+                            <button
+                                style={{
+                                    padding: '4px 8px',
+                                    border: 'none',
+                                    margin: '20px 5px',
+                                    background: '#ccc',
+                                }}
+                                onClick={() => {
+                                    this.prevPage();
+                                }}
+                            >
+                                Previous
+                            </button>
+                        ) : (
+                            <button
+                                style={{
+                                    padding: '4px 8px',
+                                    border: 'none',
+                                    margin: '20px 5px',
+                                    background: '#ccc',
+                                }}
+                                onClick={() => {
+                                    this.prevPage();
+                                }}
+                                disabled
+                            >
+                                Previous
+                            </button>
+                        )}
 
-                                            <td>
-                                                <button
-                                                    onClick={() => {
-                                                        this.openModalDiagnose(item);
-                                                    }}
-                                                >
-                                                    Diagnose
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    );
-                                })}
-                        </tbody>
-                    </table>
+                        <Pagination usersPerPage={usersPerPage} totalUsers={userData.length} paginate={this.paginate} />
+                        {currentPage < userData.length / usersPerPage ? (
+                            <button
+                                style={{
+                                    padding: '4px 8px',
+                                    border: 'none',
+                                    margin: '20px 5px',
+                                    background: '#ccc',
+                                }}
+                                onClick={() => {
+                                    this.nextPage();
+                                }}
+                            >
+                                Next
+                            </button>
+                        ) : (
+                            <button
+                                style={{
+                                    padding: '4px 8px',
+                                    border: 'none',
+                                    margin: '20px 5px',
+                                    background: '#ccc',
+                                }}
+                                onClick={() => {
+                                    this.nextPage();
+                                }}
+                                disabled
+                            >
+                                Next
+                            </button>
+                        )}
+                    </div>
                 </div>
             </div>
         );
