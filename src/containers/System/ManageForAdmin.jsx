@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './ManageForAdmin.scss';
 import { getAllUsers, createNewUserService, deleteUserService, editUserService } from '../../services/userService';
@@ -8,9 +7,9 @@ import ModalEditUser from './ModalEditUser';
 import ModalDetails from './ModalDetails';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import TableUsers from './TableUsers';
 import Pagination from './Pagination';
-// import Header from '../Header/Header';
+import { FormattedMessage } from 'react-intl';
+import TableUsersForAdmin from './TableUsersForAdmin';
 
 class ManageForAdmin extends Component {
     constructor(props) {
@@ -155,13 +154,16 @@ class ManageForAdmin extends Component {
 
     render() {
         let { dataEditUser, dataDetailsUser, userData, currentPage, usersPerPage, search } = this.state;
+        let { language } = this.props;
         let indexOfLastUser = currentPage * usersPerPage;
         let indexOfFirstUser = indexOfLastUser - usersPerPage;
         let currentUsers = userData.slice(indexOfFirstUser, indexOfLastUser);
 
         return (
             <div className="users-container">
-                <div className="title text-content">Manage for admin</div>
+                <div className="title text-content">
+                    <FormattedMessage id="system.manage-for-admin" />
+                </div>
                 <div className="m-3">
                     <ModalCreateUser
                         isOpen={this.state.isOpenModalCreateUser}
@@ -187,7 +189,9 @@ class ManageForAdmin extends Component {
                         }}
                     >
                         <i className="fas fa-plus"></i>
-                        <span className="mx-1">Add new user</span>
+                        <span className="mx-1">
+                            <FormattedMessage id="system.add" />
+                        </span>
                     </button>
                     <button
                         className="btn btn-primary px-3 mx-2"
@@ -196,28 +200,39 @@ class ManageForAdmin extends Component {
                         }}
                     >
                         <i className="fas fa-pencil-alt"></i>
-                        <span className="mx-1">Edit my infomation</span>
+                        <span className="mx-1">
+                            <FormattedMessage id="system.edit" />
+                        </span>
                     </button>
                 </div>
                 <div className="user-table mt-3 mx-1">
-                    <input
-                        type="text"
-                        name="search"
-                        placeholder="Search"
-                        onChange={(event) => {
-                            this.handleOnChangeInput(event);
-                        }}
-                        style={{
-                            padding: '6px 12px',
-                            margin: '0 0 10px 10px',
-                            outline: 'none',
-                            borderRadius: '5px',
-                            border: '1px solid #696969',
-                            width: '320px',
-                        }}
-                        value={this.state.search}
+                    <FormattedMessage id="system.search">
+                        {(placeholder) => (
+                            <input
+                                type="text"
+                                name="search"
+                                onChange={(event) => {
+                                    this.handleOnChangeInput(event);
+                                }}
+                                placeholder={placeholder}
+                                style={{
+                                    padding: '6px 12px',
+                                    margin: '0 0 10px 10px',
+                                    outline: 'none',
+                                    borderRadius: '5px',
+                                    border: '1px solid #696969',
+                                    width: '320px',
+                                }}
+                            />
+                        )}
+                    </FormattedMessage>
+                    <TableUsersForAdmin
+                        currentUsers={currentUsers}
+                        openDetailsUser={this.openDetailsUser}
+                        handleDeleteUser={this.handleDeleteUser}
+                        search={search}
+                        language={language}
                     />
-                    <TableUsers currentUsers={currentUsers} openDetailsUser={this.openDetailsUser} handleDeleteUser={this.handleDeleteUser} search={search} />
                     <div className="d-flex justify-content-center">
                         {currentPage > 1 ? (
                             <button
@@ -231,7 +246,7 @@ class ManageForAdmin extends Component {
                                     this.prevPage();
                                 }}
                             >
-                                Previous
+                                <FormattedMessage id="system.previous" />
                             </button>
                         ) : (
                             <button
@@ -246,7 +261,7 @@ class ManageForAdmin extends Component {
                                 }}
                                 disabled
                             >
-                                Previous
+                                <FormattedMessage id="system.previous" />
                             </button>
                         )}
 
@@ -263,7 +278,7 @@ class ManageForAdmin extends Component {
                                     this.nextPage();
                                 }}
                             >
-                                Next
+                                <FormattedMessage id="system.next" />
                             </button>
                         ) : (
                             <button
@@ -278,7 +293,7 @@ class ManageForAdmin extends Component {
                                 }}
                                 disabled
                             >
-                                Next
+                                <FormattedMessage id="system.next" />
                             </button>
                         )}
                     </div>
@@ -300,17 +315,13 @@ class ManageForAdmin extends Component {
             </div>
         );
     }
-
-    // Life cycle
-    // 1. Run construct => init state
-    // 2. Did mount (set state)
-    // 3. Render
 }
 
 const mapStateToProps = (state) => {
     return {
         isLoggedIn: state.user.isLoggedIn,
         userInfo: state.user.userInfo,
+        language: state.app.language,
     };
 };
 

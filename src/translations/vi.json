@@ -9,9 +9,10 @@
         "fee": "Gói khám",
         "check-health": "Khám sức khoẻ tổng quát",
         "support": "Hỗ trợ",
-        "welcome": "Xin chào"
+        "welcome": "Xin chào",
+        "login": "Đăng nhập"
     },
-    "banner": {
+    "home-banner": {
         "medical-background": "Nền tảng y tế",
         "health-care": "Chăm sóc sức khoẻ toàn diện",
         "find-specialty": "Tìm chuyên khoa khám bệnh",
@@ -20,21 +21,99 @@
         "general-exam": "Khám tổng quát",
         "medical-test": "Xét nghiệm y học",
         "mental-health": "Sức khoẻ tinh thần",
-        "dental-exam": "Khám nha khoa"
+        "dental-exam": "Khám nha khoa",
+        "placeholder": "Tìm chuyên khoa khám bệnh"
     },
-    "menu": {
-        "admin": {
-            "manage-user": "Quản lý người dùng",
-            "manage-doctor": "Quản lý bác sỹ",
-            "manage-admin": "Quản lý admin",
-            "crud": "CRUD user",
-            "crud-redux": "CRUD redux",
-            "clinic": "Phòng khám",
-            "manage-clinic": "Quản lý phòng khám",
-            "specialty": "Chuyên khoa",
-            "manage-specialty": "Quản lý chuyên khoa",
-            "handbook": "Cẩm nang",
-            "manage-handbook": "Quản lý cẩm nang"
-        }
+    "home-specialty": {
+        "popular-specialty": "Chuyên khoa phổ biến",
+        "see-more": "Xem thêm",
+        "musculoskeletal": "Cơ xương khớp",
+        "nerve": "Thần kinh",
+        "digestion": "Tiêu hoá",
+        "heart": "Tim mạch",
+        "ent": "Tai mũi họng",
+        "spine": "Cột sống",
+        "traditional-medicine": "Y học cổ truyền",
+        "acupuncture": "Châm cứu"
+    },
+    "home-about": {
+        "media-about": "Truyền thông nói về BookingCare",
+        "download": "Tải ứng dụng ngay:"
+    },
+    "home-footer": {
+        "contact": "Để biết thêm thông tin chi tiết. Liên hệ:",
+        "click-here": "Tại đây"
+    },
+    "conform-email": {
+        "title": "Nhập mã từ email của bạn",
+        "request": "Hãy cho chúng tôi biết rằng địa chỉ email này thuộc về bạn. Nhập mã từ email được gửi đến email của bạn.",
+        "send-again": "Gửi lại Email",
+        "continue": "Tiếp tục"
+    },
+    "login": {
+        "title": "Đăng nhập",
+        "email": "Địa chỉ email hoặc số điện thoại",
+        "password": "Mật khẩu",
+        "sub-text": "Hoặc đăng nhập bằng:",
+        "no-account": "Chưa có tài khoản?",
+        "register": "Đăng ký",
+        "forget-pw": "Quên mật khẩu?"
+    },
+    "register": {
+        "title": "Đăng ký tài khoản",
+        "email": "Địa chỉ email",
+        "password": "Mật khẩu",
+        "first-name": "Họ và tên đệm",
+        "last-name": "Tên",
+        "address": "Địa chỉ",
+        "phone": "Số điện thoại",
+        "birthday": "Ngày sinh:",
+        "gender": "Giới tính",
+        "agree": "Tôi đồng ý với",
+        "term": "Điều khoản dịch vụ",
+        "male": "Nam",
+        "female": "Nữ",
+        "other": "Khác",
+        "adready-account": "Đã có tài khoản?",
+        "here": "Đăng nhập tại đây",
+        "register": "Đăng ký"
+    },
+    "system": {
+        "manage-user": "Quản lý người dùng",
+        "welcome": "Xin chào",
+        "manage-for-admin": "Trang quản lý của quản trị viên",
+        "manage-for-doctor": "Trang khám bệnh của bác sỹ",
+        "manage-for-user": "Cập nhật thông tin của tôi",
+        "add": "Thêm mới người dùng",
+        "edit": "Chỉnh sửa thông tin của tôi",
+        "search": "Tìm kiếm",
+        "number": "Số thứ tự",
+        "email": "Email",
+        "first-name": "Họ và tên đệm",
+        "last-name": "Tên",
+        "address": "Địa chỉ",
+        "phone": "Số điện thoại",
+        "birthday": "Ngày sinh",
+        "gender": "Giới tính",
+        "role": "Chức vụ",
+        "action": "Hành động",
+        "previous": "Trước",
+        "next": "Sau",
+        "detail": "Chi tiết",
+        "delete": "Xoá",
+        "doctor": "Bác sĩ",
+        "patient": "Bệnh nhân",
+        "admin": "Quản trị viên",
+        "user-info": "Thông tin người dùng",
+        "fullname": "Họ và tên",
+        "status": "Trạng thái sức khoẻ",
+        "diagnose": "Chẩn đoán",
+        "prescription": "Đơn thuốc",
+        "close": "Đóng",
+        "edit-info": "Chỉnh sửa thông tin của tôi",
+        "update": "Cập nhật",
+        "password": "Mật khẩu",
+        "add-btn": "Thêm",
+        "save-change": "Lưu thay đổi"
     }
 }

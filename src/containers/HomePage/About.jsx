@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
-// import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 class About extends Component {
     render() {
@@ -9,7 +8,10 @@ class About extends Component {
             <div className="section about">
                 <div className="section-container">
                     <div className="about-left">
-                        <div className="title-section">Truyền thông nói về BookingCare</div>
+                        <div className="title-section">
+                            {' '}
+                            <FormattedMessage id="home-about.media-about" />
+                        </div>
                         <iframe
                             width="100%"
                             height="400px"
@@ -22,7 +24,9 @@ class About extends Component {
                     </div>
                     <div className="about-right">
                         <p className="description">
-                            <span>Tải ứng dụng ngay tại đây: </span>
+                            <div>
+                                <FormattedMessage id="home-about.download" />
+                            </div>
                             <a href="https://bookingcare.vn/app">https://bookingcare.vn/app</a>
                         </p>
                         <div className="mobile-app"></div>

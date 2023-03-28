@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import HomeHeader from './HomeHeader.jsx';
-import Specialty from './Section/Specialty.jsx';
+import Specialty from './Specialty.jsx';
 import './HomePage.scss';
-import About from './Section/About.jsx';
+import About from './About.jsx';
 import HomeFooter from './HomeFooter.jsx';
 
 class HomePage extends Component {

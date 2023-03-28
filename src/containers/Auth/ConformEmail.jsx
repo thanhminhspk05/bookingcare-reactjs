@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './ConformEmail.scss';
 
-// import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 class ConformEmail extends Component {
     constructor(props) {
@@ -14,17 +14,25 @@ class ConformEmail extends Component {
         return (
             <div className="conform-background ">
                 <div className="conform-content">
-                    <h2>Enter the code from your email</h2>
+                    <h2>
+                        <FormattedMessage id="conform-email.title" />
+                    </h2>
                     <hr />
-                    <div> Let us know that this email address belongs to you. Enter the code from the email sent to your email.</div>
-                    <input type="number" max="6" />
                     <div>
-                        <a href="/"> Send Email Again</a>
+                        <FormattedMessage id="conform-email.request" />
+                    </div>
+                    <input type="number" max="6" placeholder="Code" />
+                    <div>
+                        <a href="/">
+                            <FormattedMessage id="conform-email.send-again" />
+                        </a>
                     </div>
                     <hr />
                     <div className="continue">
                         <button className="btn-continue">
-                            <a href="/login">Continue</a>
+                            <a href="/login">
+                                <FormattedMessage id="conform-email.continue" />
+                            </a>
                         </button>
                     </div>
                 </div>

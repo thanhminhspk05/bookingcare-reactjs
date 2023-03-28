@@ -1,21 +1,37 @@
 import React, { Component } from 'react';
+import { FormattedMessage } from 'react-intl';
 
-class TableUsers extends Component {
+class TableUsersForAdmin extends Component {
     render() {
         let currentUsers = this.props.currentUsers;
-        console.log(currentUsers);
-        let { search } = this.props;
+        let { search, language, roleId } = this.props;
+
         return (
             <table id="customers">
                 <tbody>
                     <tr>
-                        <th style={{ width: '50px' }}>Number</th>
-                        <th>Email</th>
-                        <th>First name</th>
-                        <th>Last name</th>
-                        <th>Adress</th>
-                        <th>Role</th>
-                        <th>Actions</th>
+                        <th style={{ width: '100px', textAlign: 'center' }}>
+                            <FormattedMessage id="system.number" />
+                        </th>
+                        <th>
+                            <FormattedMessage id="system.email" />
+                        </th>
+                        <th>
+                            <FormattedMessage id="system.first-name" />
+                        </th>
+                        <th>
+                            <FormattedMessage id="system.last-name" />
+                        </th>
+                        <th>
+                            <FormattedMessage id="system.address" />
+                        </th>
+
+                        <th>
+                            <FormattedMessage id="system.role" />
+                        </th>
+                        <th>
+                            <FormattedMessage id="system.action" />
+                        </th>
                     </tr>
                     {currentUsers &&
                         currentUsers
@@ -36,7 +52,14 @@ class TableUsers extends Component {
                                         <td>{item.firstName}</td>
                                         <td>{item.lastName}</td>
                                         <td>{item.address}</td>
-                                        <td style={{ textTransform: 'capitalize' }}>{item.roleId}</td>
+                                        {language === 'vi' && (
+                                            <td>
+                                                {item.roleId === 'Admin' ? 'Quản trị viên' : ''}
+                                                {item.roleId === 'Doctor' ? 'Bác sỹ' : ''}
+                                                {item.roleId === 'Patient' ? 'Bệnh nhân' : ''}
+                                            </td>
+                                        )}
+                                        {language === 'en' && <td>{item.roleId}</td>}
 
                                         <td style={{ width: '150px' }}>
                                             <button
@@ -45,14 +68,14 @@ class TableUsers extends Component {
                                                 }}
                                                 style={{ border: '1px solid #ca8229' }}
                                             >
-                                                Details
+                                                <FormattedMessage id="system.detail" />
                                             </button>
                                             <button
                                                 className="mx-2"
                                                 style={{ border: '1px solid #db0808' }}
                                                 onClick={() => this.props.handleDeleteUser(item.id)}
                                             >
-                                                Delete
+                                                <FormattedMessage id="system.delete" />
                                             </button>
                                         </td>
                                     </tr>
@@ -64,4 +87,16 @@ class TableUsers extends Component {
     }
 }
 
-export default TableUsers;
+const mapStateToProps = (state) => {
+    return {
+        isLoggedIn: state.user.isLoggedIn,
+        userInfo: state.user.userInfo,
+        language: state.app.language,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {};
+};
+
+export default TableUsersForAdmin;

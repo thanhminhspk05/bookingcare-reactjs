@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-// import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { getAllUsers } from '../../services/userService';
 import ModalEditUser from './ModalEditUser';
 import ModalDiagnose from './ModalDiagnose';
 import './ManageForAdmin.scss';
-import TableUsers from './TableUsers';
+import TableUsersForDoctor from './TableUsersForDoctor';
 import Pagination from './Pagination';
 
 class ManageForDoctor extends Component {
@@ -30,7 +30,7 @@ class ManageForDoctor extends Component {
     // RE-RENDER LIST USER
     getAllUserFromReact = async () => {
         let response = await getAllUsers('ALL');
-        let newuserData = response.user.filter((item) => item.roleId === 'patient');
+        let newuserData = response.user.filter((item) => item.roleId === 'Patient');
         if (response && response.errCode === 0) {
             this.setState({
                 userData: newuserData,
@@ -54,7 +54,7 @@ class ManageForDoctor extends Component {
 
     cancelModalEditUser = () => {
         this.setState({
-            isOpenModalDiagnose: false,
+            isOpenModalEditUser: false,
         });
     };
 
@@ -95,14 +95,18 @@ class ManageForDoctor extends Component {
         let indexOfLastUser = currentPage * usersPerPage;
         let indexOfFirstUser = indexOfLastUser - usersPerPage;
         let currentUsers = userData.slice(indexOfFirstUser, indexOfLastUser);
+        let { roleId } = this.props.userInfo;
+        console.log(this.state.isOpenModalEditUser);
         return (
             <div className="users-container">
-                <div className="title text-content">Manage for doctor</div>
+                <div className="title text-content">
+                    <FormattedMessage id="system.manage-for-doctor" />
+                </div>
                 <div className="m-3">
                     {this.state.isOpenModalEditUser && (
                         <ModalEditUser
                             isOpen={this.state.isOpenModalEditUser}
-                            cancelModelEditUser={this.cancelModelEditUser}
+                            cancelModalEditUser={this.cancelModalEditUser}
                             dataEditUser={dataEditUser}
                             handleEditUser={this.handleEditUser}
                         />
@@ -119,28 +123,34 @@ class ManageForDoctor extends Component {
                             }}
                         >
                             <i className="fas fa-pencil-alt"></i>
-                            <span className="mx-1">Edit my infomation</span>
+                            <span className="mx-1">
+                                <FormattedMessage id="system.edit" />
+                            </span>
                         </button>
                     </div>
                 </div>
                 <div className="user-table mt-3 mx-1">
-                    <input
-                        type="text"
-                        name="search"
-                        placeholder="Search"
-                        onChange={(event) => {
-                            this.handleOnChangeInput(event);
-                        }}
-                        style={{
-                            padding: '6px 12px',
-                            margin: '0 0 10px 10px',
-                            outline: 'none',
-                            borderRadius: '5px',
-                            border: '1px solid #696969',
-                            width: '320px',
-                        }}
-                    />
-                    <TableUsers currentUsers={currentUsers} openDetailsUser={this.openDetailsUser} handleDeleteUser={this.handleDeleteUser} search={search} />
+                    <FormattedMessage id="system.search">
+                        {(placeholder) => (
+                            <input
+                                type="text"
+                                name="search"
+                                onChange={(event) => {
+                                    this.handleOnChangeInput(event);
+                                }}
+                                placeholder={placeholder}
+                                style={{
+                                    padding: '6px 12px',
+                                    margin: '0 0 10px 10px',
+                                    outline: 'none',
+                                    borderRadius: '5px',
+                                    border: '1px solid #696969',
+                                    width: '230px',
+                                }}
+                            />
+                        )}
+                    </FormattedMessage>
+                    <TableUsersForDoctor currentUsers={currentUsers} openModalDiagnose={this.openModalDiagnose} search={search} roleId={roleId} />
                     <div className="d-flex justify-content-center">
                         {currentPage > 1 ? (
                             <button

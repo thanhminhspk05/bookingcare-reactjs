@@ -19,10 +19,10 @@ class System extends Component {
                 {this.props.isLoggedIn && <Header />}
                 <div className="system-list">
                     <Switch>
-                        {roleId === 'admin' ? (
+                        {roleId === 'Admin' ? (
                             <Route path="/system/user-manage" component={ManageForAdmin} />
-                        ) : roleId === 'doctor' ? (
-                            <Route path="/system/user-manage" component={ManageForDoctor} />
+                        ) : roleId === 'Doctor' ? (
+                            <Route path="/system/user-manage" component={ManageForDoctor} roleId={roleId} />
                         ) : (
                             <Route path="/system/user-manage" component={ManageForUser} />
                         )}

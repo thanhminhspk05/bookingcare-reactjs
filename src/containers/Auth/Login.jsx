@@ -4,6 +4,7 @@ import { push } from 'connected-react-router';
 import * as actions from '../../store/actions';
 import './Login.scss';
 import { handleLoginService } from '../../services/userService';
+import { FormattedMessage } from 'react-intl';
 
 class Login extends Component {
     constructor(props) {
@@ -58,31 +59,42 @@ class Login extends Component {
             <div className="login-background">
                 <div className="login-container">
                     <div className="login-content row">
-                        <div className="col-12 text-login">Login</div>
+                        <div className="col-12 text-login">
+                            <FormattedMessage id="login.title" />
+                        </div>
                         <div className="col-12 form-ground login-input">
-                            <input
-                                type="text"
-                                name="username"
-                                className="form-control"
-                                placeholder="Email address or phone number"
-                                value={this.state.username}
-                                onChange={(e) => {
-                                    this.handleOnChangeInput(e);
-                                }}
-                            />
+                            <FormattedMessage id="login.email" defaultMessage="search">
+                                {(placeholder) => (
+                                    <input
+                                        type="text"
+                                        name="username"
+                                        className="form-control"
+                                        placeholder={placeholder}
+                                        value={this.state.username}
+                                        onChange={(e) => {
+                                            this.handleOnChangeInput(e);
+                                        }}
+                                    />
+                                )}
+                            </FormattedMessage>
                         </div>
                         <div className="col-12 form-ground login-input">
                             <div className="custom-input-password">
-                                <input
-                                    type={isShowPassword ? 'text' : 'password'}
-                                    name="password"
-                                    className="form-control"
-                                    placeholder="Password"
-                                    value={this.state.password}
-                                    onChange={(e) => {
-                                        this.handleOnChangeInput(e);
-                                    }}
-                                />
+                                <FormattedMessage id="login.password" defaultMessage="search">
+                                    {(placeholder) => (
+                                        <input
+                                            type={isShowPassword ? 'text' : 'password'}
+                                            name="password"
+                                            className="form-control"
+                                            placeholder={placeholder}
+                                            value={this.state.password}
+                                            onChange={(e) => {
+                                                this.handleOnChangeInput(e);
+                                            }}
+                                        />
+                                    )}
+                                </FormattedMessage>
+
                                 <span
                                     onClick={() => {
                                         this.handleShowHidePassword();
@@ -102,16 +114,20 @@ class Login extends Component {
                                     this.handleLogin();
                                 }}
                             >
-                                Login
+                                <FormattedMessage id="login.title" />
                             </button>
                         </div>
                         <div className="col-12">
                             <div className="forgot-password">
-                                <a href="/">Forgot your password?</a>
+                                <a href="/login">
+                                    <FormattedMessage id="login.forget-pw" />
+                                </a>
                             </div>
                         </div>
                         <div className="col-12 text-center">
-                            <div className="text-other-login">Or login with:</div>
+                            <div className="text-other-login">
+                                <FormattedMessage id="login.sub-text" />
+                            </div>
                         </div>
                         <div className="col-12 social-login">
                             <i className="fab fa-google-plus-g google"></i>
@@ -119,7 +135,10 @@ class Login extends Component {
                         </div>
                         <div className="register text-center">
                             <div className="">
-                                Haven't account? <a href="/register">Register</a>
+                                <FormattedMessage id="login.no-account" />{' '}
+                                <a href="/register">
+                                    <FormattedMessage id="login.register" />
+                                </a>
                             </div>
                         </div>
                     </div>

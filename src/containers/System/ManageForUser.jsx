@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { getAllUsers, editUserService } from '../../services/userService';
 import { ToastContainer, toast } from 'react-toastify';
@@ -83,9 +83,13 @@ class ManageForUser extends Component {
         return (
             <div className="container-for" style={{ width: '80%', maxWidth: '550px', margin: '30px auto', border: '1px solid #ccc', padding: '30px' }}>
                 <form>
-                    <h2 className="title">User infomation</h2>
+                    <h2 className="title">
+                        <FormattedMessage id="system.manage-for-user" />
+                    </h2>
                     <div className="form-outline mb-2">
-                        <label className="form-label">Email address</label>
+                        <label className="form-label">
+                            <FormattedMessage id="system.email" />
+                        </label>
                         <input
                             type="email"
                             name="email"
@@ -99,7 +103,9 @@ class ManageForUser extends Component {
                     </div>
                     <div className="d-flex form-outline mb-2 justify-content-between">
                         <div className="w-40">
-                            <label className="form-label">First name</label>
+                            <label className="form-label">
+                                <FormattedMessage id="system.first-name" />
+                            </label>
                             <input
                                 type="text"
                                 name="firstName"
@@ -112,7 +118,9 @@ class ManageForUser extends Component {
                             />
                         </div>
                         <div className="w-40">
-                            <label className="form-label">Last name</label>
+                            <label className="form-label">
+                                <FormattedMessage id="system.last-name" />
+                            </label>
                             <input
                                 type="text"
                                 name="lastName"
@@ -127,7 +135,9 @@ class ManageForUser extends Component {
                     </div>
 
                     <div className="form-outline mb-2">
-                        <label className="form-label">Address</label>
+                        <label className="form-label">
+                            <FormattedMessage id="system.address" />
+                        </label>
                         <input
                             type="text"
                             name="address"
@@ -140,7 +150,9 @@ class ManageForUser extends Component {
                         />
                     </div>
                     <div className="form-outline mb-2">
-                        <label className="form-label">Phone number</label>
+                        <label className="form-label">
+                            <FormattedMessage id="system.phone" />
+                        </label>
                         <input
                             type="text"
                             name="phone"
@@ -154,7 +166,9 @@ class ManageForUser extends Component {
                     </div>
 
                     <div className="form-outline mb-4">
-                        <label className="form-label">Health status</label>
+                        <label className="form-label">
+                            <FormattedMessage id="system.status" />
+                        </label>
                         <textarea
                             name="statusHealth"
                             className="form-control form-control-lg"
@@ -168,7 +182,9 @@ class ManageForUser extends Component {
                         />
                     </div>
                     <div className="form-outline mb-4">
-                        <label className="form-label">Diagnose</label>
+                        <label className="form-label">
+                            <FormattedMessage id="system.diagnose" />
+                        </label>
                         <textarea
                             name="diagnose"
                             className="form-control form-control-lg"
@@ -182,7 +198,9 @@ class ManageForUser extends Component {
                         />
                     </div>
                     <div className="form-outline mb-4">
-                        <label className="form-label">Prescription</label>
+                        <label className="form-label">
+                            <FormattedMessage id="system.prescription" />
+                        </label>
                         <textarea
                             name="prescription"
                             className="form-control form-control-lg"
@@ -204,7 +222,7 @@ class ManageForUser extends Component {
                                 this.handleUpdateInfo();
                             }}
                         >
-                            Update
+                            <FormattedMessage id="system.update" />
                         </button>
                     </div>
                 </form>

@@ -9,9 +9,10 @@
         "fee": "Checkup package",
         "check-health": "General health check",
         "support": "Support",
-        "welcome": "Welcome"
+        "welcome": "Welcome",
+        "login": "Login"
     },
-    "banner": {
+    "home-banner": {
         "medical-background": "Medical background",
         "health-care": "Comprehensive health care",
         "find-specialty": "Find a medical specialty",
@@ -20,21 +21,99 @@
         "general-exam": "General examination",
         "medical-test": "Medical test",
         "mental-health": "Mental health",
-        "dental-exam": "Dental examination"
+        "dental-exam": "Dental examination",
+        "placeholder": "Find a medical specialist"
     },
-    "menu": {
-        "admin": {
-            "manage-user": "User manage",
-            "manage-doctor": "Doctor manage",
-            "manage-admin": "Admin manage",
-            "crud": "CRUD user",
-            "crud-redux": "CRUD redux",
-            "clinic": "Clinic",
-            "manage-clinic": "Manage clinic",
-            "specialty": "Specialty",
-            "manage-specialty": "Manage Specialty",
-            "handbook": "Handbook",
-            "manage-handbook": "Manage Handbook"
-        }
+    "home-specialty": {
+        "popular-specialty": "Popular specialties",
+        "see-more": "See more",
+        "musculoskeletal": "Musculoskeletal",
+        "nerve": "Nerve",
+        "digestion": "Digestion",
+        "heart": "Heart",
+        "ent": "Ear - Nose - Throat",
+        "spine": "Spine",
+        "traditional-medicine": "Y học cổ truyền",
+        "acupuncture": "Acupuncture"
+    },
+    "home-about": {
+        "media-about": "Media talk about BookingCare",
+        "download": "Download now:"
+    },
+    "home-footer": {
+        "contact": "For more detailed information. Contact:",
+        "click-here": "Click here"
+    },
+    "conform-email": {
+        "title": "Enter the code from your email",
+        "request": "Let us know that this email address belongs to you. Enter the code from the email sent to your email.",
+        "send-again": "Send Email Again",
+        "continue": "Continue"
+    },
+    "login": {
+        "title": "Login",
+        "email": "Email address or phone number",
+        "password": "Password",
+        "sub-text": "Or login with:",
+        "no-account": "Haven't account?",
+        "register": "Register",
+        "forget-pw": "Forget password?"
+    },
+    "register": {
+        "title": "CREATE AN ACCOUNT",
+        "email": "Email address",
+        "password": "Password",
+        "first-name": "First Name",
+        "last-name": "Last Name",
+        "address": "Address",
+        "phone": "Phone Number",
+        "birthday": "Birthday:",
+        "gender": "Gender",
+        "agree": "I agree all statements in",
+        "term": "Terms of service",
+        "male": "Male",
+        "female": "Female",
+        "other": "Other",
+        "adready-account": "Have already an account?",
+        "here": "Login here",
+        "register": "Register"
+    },
+    "system": {
+        "manage-user": "Manage user",
+        "welcome": "Welcome,",
+        "manage-for-admin": "Manage for admin",
+        "manage-for-doctor": "Manage for doctor",
+        "manage-for-user": "Update patient information",
+        "add": "Add new user",
+        "edit": "Edit my information",
+        "search": "Search",
+        "number": "Number",
+        "email": "Email",
+        "first-name": "First Name",
+        "last-name": "Last Name",
+        "address": "Address",
+        "phone": "Phone Number",
+        "birthday": "Birthday",
+        "gender": "Gender",
+        "role": "Role",
+        "action": "Actions",
+        "previous": "Previous",
+        "next": "Next",
+        "detail": "Details",
+        "delete": "Delete",
+        "doctor": "Doctor",
+        "patient": "Patient",
+        "admin": "Admin",
+        "user-info": "User information",
+        "fullname": "Full Name",
+        "status": "Status health",
+        "diagnose": "Diagnose",
+        "prescription": "Prescription",
+        "close": "Close",
+        "edit-info": "Edit my information",
+        "update": "Update",
+        "password": "Password",
+        "add-btn": "Add",
+        "save-change": "Save changes"
     }
 }

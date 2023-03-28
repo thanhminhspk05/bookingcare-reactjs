@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
@@ -90,12 +90,14 @@ class ModalEditUser extends Component {
                         this.props.cancelModalEditUser();
                     }}
                 >
-                    Edit user infomation
+                    <FormattedMessage id="system.edit" />
                 </ModalHeader>
                 <ModalBody>
                     <div className="modal-user-body">
                         <div className="input-container">
-                            <label htmlFor="">Email</label>
+                            <label htmlFor="">
+                                <FormattedMessage id="system.email" />
+                            </label>
                             <input
                                 type="email"
                                 name="email"
@@ -107,7 +109,9 @@ class ModalEditUser extends Component {
                             />
                         </div>
                         <div className="input-container">
-                            <label htmlFor="">Password</label>
+                            <label htmlFor="">
+                                <FormattedMessage id="system.password" />
+                            </label>
                             <input
                                 type="password"
                                 name="password"
@@ -119,7 +123,9 @@ class ModalEditUser extends Component {
                             />
                         </div>
                         <div className="input-container">
-                            <label htmlFor="">First name</label>
+                            <label htmlFor="">
+                                <FormattedMessage id="system.first-name" />
+                            </label>
                             <input
                                 type="text"
                                 name="firstName"
@@ -130,7 +136,9 @@ class ModalEditUser extends Component {
                             />
                         </div>
                         <div className="input-container">
-                            <label htmlFor="">Last name</label>
+                            <label htmlFor="">
+                                <FormattedMessage id="system.last-name" />
+                            </label>
                             <input
                                 type="text"
                                 name="lastName"
@@ -141,7 +149,9 @@ class ModalEditUser extends Component {
                             />
                         </div>
                         <div className="input-container input-addess">
-                            <label htmlFor="">Address</label>
+                            <label htmlFor="">
+                                <FormattedMessage id="system.address" />
+                            </label>
                             <input
                                 type="text"
                                 name="address"
@@ -152,7 +162,9 @@ class ModalEditUser extends Component {
                             />
                         </div>
                         <div className="input-container gender">
-                            <label>Role</label>
+                            <label>
+                                <FormattedMessage id="system.role" />
+                            </label>
                             <select
                                 name="roleId"
                                 onChange={(event) => {
@@ -161,9 +173,10 @@ class ModalEditUser extends Component {
                                 style={{ padding: '5px 0' }}
                                 value={this.state.gender}
                                 required
+                                disabled
                             >
-                                <option value="doctor">Doctor</option>
-                                <option value="admin">Admin</option>
+                                <FormattedMessage id="system.doctor">{(message) => <option value="doctor">{message}</option>}</FormattedMessage>
+                                <FormattedMessage id="system.admin">{(message) => <option value="admin">{message}</option>}</FormattedMessage>
                             </select>
                         </div>
                     </div>
@@ -176,7 +189,7 @@ class ModalEditUser extends Component {
                             this.handleSaveUser();
                         }}
                     >
-                        Save changes
+                        <FormattedMessage id="system.save-change" />
                     </Button>
                     <Button
                         color="secondary"

@@ -1,20 +1,20 @@
 export const adminMenu = [
     {
-        name: 'menu.admin.manage-user',
+        name: 'system.manage-user',
         link: '/system/user-manage',
     },
 ];
 
 export const doctorMenu = [
     {
-        name: 'menu.admin.doctor-user',
+        name: 'system.doctor-user',
         link: '/system/user-doctor',
     },
 ];
 
 export const patientMenu = [
     {
-        name: 'menu.admin.user-status',
+        name: 'system.user-status',
         link: '/system/user-status',
     },
 ];

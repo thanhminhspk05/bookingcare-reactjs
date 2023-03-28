@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { getAllUsers, editUserService } from '../../services/userService';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
@@ -55,7 +55,8 @@ class ModalDiagnose extends Component {
 
     render() {
         let userData = this.props.dataDiagnose;
-        console.log(userData);
+        let { language } = this.props;
+
         return (
             <>
                 <Modal
@@ -75,74 +76,30 @@ class ModalDiagnose extends Component {
                     </ModalHeader>
                     <ModalBody>
                         <div>
-                            <label htmlFor="">Email:</label>
-                            <input type="text" value={userData.email} disabled style={{ border: 'none', background: '#fff', width: '200px' }} />
+                            <FormattedMessage id="system.email" />: {userData.email}
                         </div>
                         <div>
-                            <label htmlFor="">Full name:</label>
-                            <input
-                                type="text"
-                                value={userData.firstName + ' ' + userData.lastName}
-                                disabled
-                                style={{ border: 'none', background: '#fff', width: '200px', textTransform: 'capitalize' }}
-                            />
+                            <FormattedMessage id="system.fullname" />: {userData.firstName + ' ' + userData.lastName}
                         </div>
                         <div>
-                            <label htmlFor="">Address:</label>
-                            <input
-                                type="text"
-                                value={userData.address}
-                                disabled
-                                style={{ border: 'none', background: '#fff', width: '200px', textTransform: 'capitalize' }}
-                            />
+                            <FormattedMessage id="system.address" />: {userData.address}
                         </div>
                         <div>
-                            <label htmlFor="">Birthay:</label>
-                            <input
-                                type="text"
-                                value={userData.birthday}
-                                disabled
-                                style={{ border: 'none', background: '#fff', width: '200px', textTransform: 'capitalize' }}
-                            />
+                            <FormattedMessage id="system.birthday" />: {userData.birthday}
                         </div>
                         <div>
-                            <label htmlFor="">Phone Number:</label>
-                            <input
-                                type="text"
-                                value={userData.phone}
-                                disabled
-                                style={{ border: 'none', background: '#fff', width: '200px', textTransform: 'capitalize' }}
-                            />
+                            <FormattedMessage id="system.phone" />: {userData.phone}
                         </div>
                         <div>
-                            <label htmlFor="">Gender:</label>
-                            <input
-                                type="text"
-                                value={userData.gender}
-                                disabled
-                                style={{ border: 'none', background: '#fff', width: '200px', textTransform: 'capitalize' }}
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="">Role:</label>
-                            <input
-                                type="text"
-                                value={userData.roleId}
-                                disabled
-                                style={{ border: 'none', background: '#fff', width: '200px', textTransform: 'capitalize' }}
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="">Status health:</label>
-                            <input
-                                type="text"
-                                value={userData.statusHealth || ''}
-                                disabled
-                                style={{ border: 'none', background: '#fff', width: '200px', textTransform: 'capitalize' }}
-                            />
+                            <FormattedMessage id="system.gender" />: {language === 'vi' && userData.gender === 'Male' && 'Nam'}
+                            {language === 'vi' && userData.gender === 'Female' && 'Nữ'}
+                            {language === 'vi' && userData.gender === 'Other' && 'Khác'}
+                            {language === 'en' && userData.gender}
                         </div>
                         <div className="form-outline mb-4">
-                            <label className="form-label">Diagnose</label>
+                            <label className="form-label">
+                                <FormattedMessage id="system.diagnose" />:
+                            </label>
                             <textarea
                                 name="diagnose"
                                 className="form-control form-control-lg"
@@ -156,7 +113,7 @@ class ModalDiagnose extends Component {
                             />
                         </div>
                         <div className="form-outline mb-4">
-                            <label className="form-label">Prescription</label>
+                            <FormattedMessage id="system.prescription" />:
                             <textarea
                                 name="prescription"
                                 className="form-control form-control-lg"
@@ -211,7 +168,9 @@ class ModalDiagnose extends Component {
 }
 
 const mapStateToProps = (state) => {
-    return {};
+    return {
+        language: state.app.language,
+    };
 };
 
 const mapDispatchToProps = (dispatch) => {

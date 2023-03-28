@@ -4,7 +4,7 @@ import { createNewUserService } from '../../services/userService';
 import './Register.scss';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 class Register extends Component {
     constructor(props) {
@@ -68,9 +68,13 @@ class Register extends Component {
                             <div className="col-12 col-md-9 col-lg-7 col-xl-6" style={{ maxWidth: '500px' }}>
                                 <div className="card">
                                     <div className="card-body p-4">
-                                        <h2 className="title">Create an account</h2>
+                                        <h2 className="title">
+                                            <FormattedMessage id="register.title" />
+                                        </h2>
                                         <div className="mb-3">
-                                            <label className="form-label">Email address</label>
+                                            <label className="form-label">
+                                                <FormattedMessage id="register.email" />
+                                            </label>
                                             <input
                                                 type="email"
                                                 name="email"
@@ -83,7 +87,9 @@ class Register extends Component {
                                             {errCode === 1 || errCode === 2 ? <p style={{ color: 'red', margin: '5px 0px' }}>{errMessage}</p> : ''}
                                         </div>
                                         <div className="mb-3">
-                                            <label className="form-label">Password</label>
+                                            <label className="form-label">
+                                                <FormattedMessage id="register.password" />
+                                            </label>
                                             <input
                                                 type="password"
                                                 name="password"
@@ -98,7 +104,9 @@ class Register extends Component {
 
                                         <div className="d-flex  mb-3 justify-content-between">
                                             <div style={{ width: '50%' }}>
-                                                <label className="form-label">First name</label>
+                                                <label className="form-label">
+                                                    <FormattedMessage id="register.first-name" />
+                                                </label>
                                                 <input
                                                     type="text"
                                                     name="firstName"
@@ -110,7 +118,9 @@ class Register extends Component {
                                                 />
                                             </div>
                                             <div style={{ width: '45%' }}>
-                                                <label className="form-label">Last name</label>
+                                                <label className="form-label">
+                                                    <FormattedMessage id="register.last-name" />
+                                                </label>
                                                 <input
                                                     type="text"
                                                     name="lastName"
@@ -124,7 +134,9 @@ class Register extends Component {
                                         </div>
 
                                         <div className=" mb-3">
-                                            <label className="form-label">Address</label>
+                                            <label className="form-label">
+                                                <FormattedMessage id="register.address" />
+                                            </label>
                                             <input
                                                 type="text"
                                                 name="address"
@@ -136,7 +148,9 @@ class Register extends Component {
                                             />
                                         </div>
                                         <div className=" mb-3">
-                                            <label className="form-label">Phone number</label>
+                                            <label className="form-label">
+                                                <FormattedMessage id="register.phone" />
+                                            </label>
                                             <input
                                                 type="text"
                                                 name="phone"
@@ -149,7 +163,9 @@ class Register extends Component {
                                         </div>
                                         <div className="d-flex  mb-3 justify-content-between">
                                             <div className="birthday w-50">
-                                                <label className="form-label">Birthday:</label>
+                                                <label className="form-label">
+                                                    <FormattedMessage id="register.birthday" />
+                                                </label>
                                                 <input
                                                     type="date"
                                                     name="birthday"
@@ -158,10 +174,13 @@ class Register extends Component {
                                                         this.handleOnChangeInput(event);
                                                     }}
                                                     value={this.state.birthday}
+                                                    className="mx-2"
                                                 />
                                             </div>
                                             <div className="gender" style={{ width: '45%' }}>
-                                                <label className="form-label">Gender:</label>
+                                                <label className="form-label">
+                                                    <FormattedMessage id="register.gender" />
+                                                </label>
                                                 <select
                                                     name="gender"
                                                     className="mx-2"
@@ -170,9 +189,16 @@ class Register extends Component {
                                                     }}
                                                     value={this.state.gender}
                                                 >
-                                                    <option value="male">Male</option>
-                                                    <option value="female">Female</option>
-                                                    <option value="other">Other</option>
+                                                    <FormattedMessage id="register.male">
+                                                        {(message) => <option value="male">{message}</option>}
+                                                    </FormattedMessage>
+
+                                                    <FormattedMessage id="register.female">
+                                                        {(message) => <option value="female">{message}</option>}
+                                                    </FormattedMessage>
+                                                    <FormattedMessage id="register.other">
+                                                        {(message) => <option value="other">{message}</option>}
+                                                    </FormattedMessage>
                                                 </select>
                                             </div>
                                         </div>
@@ -180,9 +206,11 @@ class Register extends Component {
                                         <div className="form-check d-flex  mb-3">
                                             <input className="form-check-input me-2" type="checkbox" value={this.state.agree} />
                                             <label className="form-check-label">
-                                                I agree all statements in{' '}
-                                                <a href="#!" className="text-body">
-                                                    <u>Terms of service</u>
+                                                <FormattedMessage id="register.agree" />
+                                                <a href="#!">
+                                                    <u className="mx-1">
+                                                        <FormattedMessage id="register.term" />
+                                                    </u>
                                                 </a>
                                             </label>
                                         </div>
@@ -195,14 +223,16 @@ class Register extends Component {
                                                     this.addNewUser();
                                                 }}
                                             >
-                                                Register
+                                                <FormattedMessage id="register.register" />
                                             </button>
                                         </div>
 
                                         <p className="text-center text-muted mt-4 mb-0">
-                                            Have already an account?{' '}
-                                            <a href="/login" className="fw-bold text-body">
-                                                <u>Login here</u>
+                                            <FormattedMessage id="register.adready-account" />
+                                            <a href="/login">
+                                                <u className="mx-1">
+                                                    <FormattedMessage id="register.here" />
+                                                </u>
                                             </a>
                                         </p>
                                     </div>
