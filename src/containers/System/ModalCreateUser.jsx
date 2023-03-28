@@ -98,7 +98,6 @@ class ModalCreateUser extends Component {
                                 }}
                                 value={this.state.email}
                             />
-                            {errCode === 1 || errCode === 2 ? <p className="warning">{errMessage}</p> : ''}
                         </div>
                         <div className="input-container">
                             <label htmlFor="">Password</label>
