@@ -66,3 +66,11 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+### npx sequelize-cli db:migrate
+
+This section has created migration tables
+
+### npx sequelize-cli db:seed:all
+
+This section has created data users table

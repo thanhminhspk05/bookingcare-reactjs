@@ -19,6 +19,7 @@ class ManageForDoctor extends Component {
             userData: [],
             currentPage: 1,
             usersPerPage: 10,
+            search: '',
         };
     }
 
@@ -35,6 +36,13 @@ class ManageForDoctor extends Component {
                 userData: newuserData,
             });
         }
+    };
+
+    // UPDATE INPUT
+    handleOnChangeInput = (event) => {
+        this.setState({
+            [event.target.name]: event.target.value,
+        });
     };
 
     openEditUser = (data) => {
@@ -83,7 +91,7 @@ class ManageForDoctor extends Component {
     };
 
     render() {
-        let { userData, dataEditUser, dataDiagnose, currentPage, usersPerPage } = this.state;
+        let { userData, dataEditUser, dataDiagnose, currentPage, usersPerPage, search } = this.state;
         let indexOfLastUser = currentPage * usersPerPage;
         let indexOfFirstUser = indexOfLastUser - usersPerPage;
         let currentUsers = userData.slice(indexOfFirstUser, indexOfLastUser);
@@ -116,7 +124,23 @@ class ManageForDoctor extends Component {
                     </div>
                 </div>
                 <div className="user-table mt-3 mx-1">
-                    <TableUsers currentUsers={currentUsers} openDetailsUser={this.openDetailsUser} handleDeleteUser={this.handleDeleteUser} />
+                    <input
+                        type="text"
+                        name="search"
+                        placeholder="Search"
+                        onChange={(event) => {
+                            this.handleOnChangeInput(event);
+                        }}
+                        style={{
+                            padding: '6px 12px',
+                            margin: '0 0 10px 10px',
+                            outline: 'none',
+                            borderRadius: '5px',
+                            border: '1px solid #696969',
+                            width: '320px',
+                        }}
+                    />
+                    <TableUsers currentUsers={currentUsers} openDetailsUser={this.openDetailsUser} handleDeleteUser={this.handleDeleteUser} search={search} />
                     <div className="d-flex justify-content-center">
                         {currentPage > 1 ? (
                             <button
