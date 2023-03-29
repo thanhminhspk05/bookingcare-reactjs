@@ -114,6 +114,10 @@
         "update": "Cập nhật",
         "password": "Mật khẩu",
         "add-btn": "Thêm",
-        "save-change": "Lưu thay đổi"
+        "save-change": "Lưu thay đổi",
+        "finish": "Xong",
+        "male": "Nam",
+        "female": "Nữ",
+        "other": "Other"
     }
 }

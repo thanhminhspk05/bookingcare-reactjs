@@ -13,6 +13,8 @@ class ModalCreateUser extends Component {
             lastName: '',
             address: '',
             roleId: '',
+            phone: '',
+            gender: '',
             errCode: '',
             errMessage: '',
         };
@@ -154,6 +156,20 @@ class ModalCreateUser extends Component {
                                 value={this.state.address}
                             />
                         </div>
+                        <div className="input-container input-addess">
+                            <label htmlFor="">
+                                <FormattedMessage id="system.phone" />
+                            </label>
+                            <input
+                                type="text"
+                                name="phone"
+                                onChange={(event) => {
+                                    this.handleOnChangeInput(event);
+                                }}
+                                value={this.state.phone}
+                            />
+                        </div>
+
                         <div className="input-container gender">
                             <label>
                                 <FormattedMessage id="system.role" />
@@ -169,6 +185,25 @@ class ModalCreateUser extends Component {
                             >
                                 <FormattedMessage id="system.doctor">{(message) => <option value="doctor">{message}</option>}</FormattedMessage>
                                 <FormattedMessage id="system.admin">{(message) => <option value="admin">{message}</option>}</FormattedMessage>
+                            </select>
+                        </div>
+
+                        <div className="input-container gender">
+                            <label>
+                                <FormattedMessage id="system.gender" />
+                            </label>
+                            <select
+                                name="gender"
+                                onChange={(event) => {
+                                    this.handleOnChangeInput(event);
+                                }}
+                                style={{ padding: '5px 0' }}
+                                value={this.state.gender}
+                                required
+                            >
+                                <FormattedMessage id="system.male">{(message) => <option value="male">{message}</option>}</FormattedMessage>
+                                <FormattedMessage id="system.female">{(message) => <option value="female">{message}</option>}</FormattedMessage>
+                                <FormattedMessage id="system.other">{(message) => <option value="other">{message}</option>}</FormattedMessage>
                             </select>
                         </div>
                     </div>

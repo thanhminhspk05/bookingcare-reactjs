@@ -2,9 +2,31 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 class TableUsersForDoctor extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            arrayIsFinish: [],
+        };
+    }
+
+    componentDidMount = () => {
+        let array = [];
+        for (let i = 0; i < this.props.currentUsers.length; i++) {
+            array.push(false);
+        }
+        this.setState({ arrayIsFinish: array });
+    };
+
+    handleChangeFinish = (index) => {
+        let array = this.state.arrayIsFinish;
+        array[index] = !array[index];
+        this.setState({ arrayIsFinish: array });
+    };
+
     render() {
         let currentUsers = this.props.currentUsers;
         let { search, language, roleId } = this.props;
+        let { arrayIsFinish } = this.state;
 
         return (
             <table id="customers">
@@ -63,14 +85,22 @@ class TableUsersForDoctor extends Component {
                                         )}
                                         {language === 'en' && <td>{item.roleId}</td>}
 
-                                        <td style={{ width: '150px' }}>
+                                        <td style={{ width: '200px' }}>
                                             <button
                                                 onClick={() => {
                                                     this.props.openModalDiagnose(item);
                                                 }}
-                                                style={{ border: '1px solid #ca8229' }}
+                                                style={{ border: '1px solid #ca8229', margin: '0 10px' }}
                                             >
                                                 <FormattedMessage id="system.diagnose" />
+                                            </button>
+                                            <button
+                                                onClick={() => {
+                                                    this.handleChangeFinish(index);
+                                                }}
+                                                style={{ border: '1px solid', backgroundColor: 'transparent', color: 'green' }}
+                                            >
+                                                {arrayIsFinish[index] ? <i class="fas fa-check"></i> : <FormattedMessage id="system.finish" />}
                                             </button>
                                         </td>
                                     </tr>

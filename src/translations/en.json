@@ -114,6 +114,10 @@
         "update": "Update",
         "password": "Password",
         "add-btn": "Add",
-        "save-change": "Save changes"
+        "save-change": "Save changes",
+        "finish": "Finish",
+        "male": "Male",
+        "female": "Female",
+        "other": "Other"
     }
 }
