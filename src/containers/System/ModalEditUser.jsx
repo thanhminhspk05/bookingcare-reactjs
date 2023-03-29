@@ -8,15 +8,32 @@ class ModalEditUser extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: {},
+            id: '',
+            email: '',
+            firstName: '',
+            lastName: '',
+            address: '',
+            phone: '',
+            birthday: '',
+            gender: '',
+            roleId: '',
         };
     }
 
     async componentDidMount() {
         let userId = this.props.dataEditUser.id;
         let data = await getAllUsers(userId);
+        data = data.user;
         this.setState({
-            data: data.user,
+            id: data.id,
+            email: data.email,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            address: data.address,
+            phone: data.phone,
+            birthday: data.birthday,
+            gender: data.gender,
+            roleId: data.roleId,
         });
     }
 
@@ -30,7 +47,7 @@ class ModalEditUser extends Component {
     };
 
     clearUserInput = () => {
-        let emptyState = { email: '', password: '', firstName: '', lastName: '', address: '' };
+        let emptyState = { email: '', firstName: '', lastName: '', address: '', phone: '', birthday: '', gender: '', roleId: '' };
         this.setState({
             ...emptyState,
         });
@@ -40,18 +57,15 @@ class ModalEditUser extends Component {
 
     handleOnChangeInput(event) {
         this.setState({
-            data: {
-                ...this.state.data,
-                [event.target.name]: event.target.value,
-            },
+            [event.target.name]: event.target.value,
         });
     }
 
     checkValidateInput = () => {
         let isValid = true;
-        let arrInput = ['email', 'firstName', 'lastName', 'address'];
+        let arrInput = ['email', 'firstName', 'lastName', 'address', 'phone', 'birthday', 'gender', 'roleId'];
         for (let i = 0; i < arrInput.length; i++) {
-            if (!this.state.data[arrInput[i]]) {
+            if (!this.state[arrInput[i]]) {
                 isValid = false;
                 alert(`Missing parameter ${arrInput[i]}`);
                 break;
@@ -60,18 +74,22 @@ class ModalEditUser extends Component {
         return isValid;
     };
 
-    handleSaveUser = () => {
-        let data = this.state.data;
+    handleSaveUser = async () => {
+        let data = this.state;
+        console.log(data);
         let isValid = this.checkValidateInput();
+        console.log('is Valid', isValid);
 
         if (isValid && data) {
-            this.props.handleEditUser(data);
+            let response = await this.props.handleEditUser(data);
             this.props.cancelModalEditUser();
+            console.log(response);
         }
     };
 
     render() {
         console.log(this.state);
+        let { email, firstName, lastName, address, phone, gender, roleId, birthday } = this.state;
         return (
             <Modal
                 isOpen={this.props.isOpen}
@@ -100,24 +118,24 @@ class ModalEditUser extends Component {
                                 onChange={(event) => {
                                     this.handleOnChangeInput(event);
                                 }}
-                                value={this.state.data.email}
-                                disabled
+                                value={email}
                             />
                         </div>
-                        <div className="input-container">
+
+                        <div className="input-container input-addess">
                             <label htmlFor="">
-                                <FormattedMessage id="system.password" />
+                                <FormattedMessage id="system.phone" />
                             </label>
                             <input
-                                type="password"
-                                name="password"
+                                type="text"
+                                name="phone"
                                 onChange={(event) => {
                                     this.handleOnChangeInput(event);
                                 }}
-                                value="**********"
-                                disabled
+                                value={phone}
                             />
                         </div>
+
                         <div className="input-container">
                             <label htmlFor="">
                                 <FormattedMessage id="system.first-name" />
@@ -128,7 +146,7 @@ class ModalEditUser extends Component {
                                 onChange={(event) => {
                                     this.handleOnChangeInput(event);
                                 }}
-                                value={this.state.data.firstName}
+                                value={firstName}
                             />
                         </div>
                         <div className="input-container">
@@ -141,10 +159,10 @@ class ModalEditUser extends Component {
                                 onChange={(event) => {
                                     this.handleOnChangeInput(event);
                                 }}
-                                value={this.state.data.lastName}
+                                value={lastName}
                             />
                         </div>
-                        <div className="input-container input-addess">
+                        <div className="input-container address">
                             <label htmlFor="">
                                 <FormattedMessage id="system.address" />
                             </label>
@@ -154,24 +172,25 @@ class ModalEditUser extends Component {
                                 onChange={(event) => {
                                     this.handleOnChangeInput(event);
                                 }}
-                                value={this.state.data.address}
+                                value={address}
                             />
                         </div>
-                        <div className="input-container input-addess">
-                            <label htmlFor="">
-                                <FormattedMessage id="system.phone" />
+                        <div className="input-container birthday">
+                            <label>
+                                <FormattedMessage id="system.birthday" />
                             </label>
                             <input
-                                type="text"
-                                name="phone"
+                                type="date"
+                                name="birthday"
+                                max={new Date().toISOString().split('T')[0]}
                                 onChange={(event) => {
                                     this.handleOnChangeInput(event);
                                 }}
-                                value={this.state.data.phone}
+                                value={birthday}
                             />
                         </div>
 
-                        <div className="input-container gender">
+                        <div className="input-container role">
                             <label>
                                 <FormattedMessage id="system.role" />
                             </label>
@@ -181,8 +200,7 @@ class ModalEditUser extends Component {
                                     this.handleOnChangeInput(event);
                                 }}
                                 style={{ padding: '5px 0' }}
-                                value={this.state.data.roleId}
-                                disabled
+                                value={roleId}
                             >
                                 <FormattedMessage id="system.doctor">{(message) => <option value="doctor">{message}</option>}</FormattedMessage>
                                 <FormattedMessage id="system.admin">{(message) => <option value="admin">{message}</option>}</FormattedMessage>
@@ -199,8 +217,7 @@ class ModalEditUser extends Component {
                                     this.handleOnChangeInput(event);
                                 }}
                                 style={{ padding: '5px 0' }}
-                                value={this.state.data.gender}
-                                disabled
+                                value={gender}
                             >
                                 <FormattedMessage id="system.male">{(message) => <option value="male">{message}</option>}</FormattedMessage>
                                 <FormattedMessage id="system.female">{(message) => <option value="female">{message}</option>}</FormattedMessage>

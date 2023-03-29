@@ -93,8 +93,9 @@ class ManageForAdmin extends Component {
     handleEditUser = async (data) => {
         try {
             let response = await editUserService(data);
+            console.log(response);
             if (response && response.errCode === 0) {
-                this.cancelModalCreateUser();
+                this.cancelModalEditUser();
                 this.getAllUserFromReact();
                 toast.success('Updated information successfully!');
                 return true;
