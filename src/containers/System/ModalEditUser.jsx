@@ -2,29 +2,32 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { getAllUsers, editUserService } from '../../services/userService';
 
 class ModalEditUser extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: '',
-            email: '',
-            firstName: '',
-            lastName: '',
-            address: '',
+            data: {},
         };
     }
 
-    componentDidMount() {
-        let { dataEditUser } = this.props;
+    async componentDidMount() {
+        let userId = this.props.dataEditUser.id;
+        let data = await getAllUsers(userId);
         this.setState({
-            id: dataEditUser.id,
-            email: dataEditUser.email,
-            firstName: dataEditUser.firstName,
-            lastName: dataEditUser.lastName,
-            address: dataEditUser.address,
+            data: data.user,
         });
     }
+
+    getAllUserFromReact = async () => {
+        let response = await getAllUsers('ALL');
+        if (response && response.errCode === 0) {
+            this.setState({
+                data: response.user,
+            });
+        }
+    };
 
     clearUserInput = () => {
         let emptyState = { email: '', password: '', firstName: '', lastName: '', address: '' };
@@ -36,11 +39,11 @@ class ModalEditUser extends Component {
     };
 
     handleOnChangeInput(event) {
-        let copyState = { ...this.state };
-        let name = event.target.name;
-        copyState[name] = event.target.value;
         this.setState({
-            ...copyState,
+            data: {
+                ...this.state.data,
+                [event.target.name]: event.target.value,
+            },
         });
     }
 
@@ -48,8 +51,7 @@ class ModalEditUser extends Component {
         let isValid = true;
         let arrInput = ['email', 'firstName', 'lastName', 'address'];
         for (let i = 0; i < arrInput.length; i++) {
-            console.log(!this.state[arrInput[i]]);
-            if (!this.state[arrInput[i]]) {
+            if (!this.state.data[arrInput[i]]) {
                 isValid = false;
                 alert(`Missing parameter ${arrInput[i]}`);
                 break;
@@ -59,16 +61,9 @@ class ModalEditUser extends Component {
     };
 
     handleSaveUser = () => {
-        let data = {
-            id: this.state.id,
-            email: this.state.email,
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
-            address: this.state.address,
-        };
-
+        let data = this.state.data;
         let isValid = this.checkValidateInput();
-        console.log(this.props);
+
         if (isValid && data) {
             this.props.handleEditUser(data);
             this.props.cancelModalEditUser();
@@ -76,6 +71,7 @@ class ModalEditUser extends Component {
     };
 
     render() {
+        console.log(this.state);
         return (
             <Modal
                 isOpen={this.props.isOpen}
@@ -104,7 +100,7 @@ class ModalEditUser extends Component {
                                 onChange={(event) => {
                                     this.handleOnChangeInput(event);
                                 }}
-                                value={this.state.email}
+                                value={this.state.data.email}
                                 disabled
                             />
                         </div>
@@ -118,7 +114,7 @@ class ModalEditUser extends Component {
                                 onChange={(event) => {
                                     this.handleOnChangeInput(event);
                                 }}
-                                value="hardcore"
+                                value="**********"
                                 disabled
                             />
                         </div>
@@ -132,7 +128,7 @@ class ModalEditUser extends Component {
                                 onChange={(event) => {
                                     this.handleOnChangeInput(event);
                                 }}
-                                value={this.state.firstName}
+                                value={this.state.data.firstName}
                             />
                         </div>
                         <div className="input-container">
@@ -145,7 +141,7 @@ class ModalEditUser extends Component {
                                 onChange={(event) => {
                                     this.handleOnChangeInput(event);
                                 }}
-                                value={this.state.lastName}
+                                value={this.state.data.lastName}
                             />
                         </div>
                         <div className="input-container input-addess">
@@ -158,7 +154,7 @@ class ModalEditUser extends Component {
                                 onChange={(event) => {
                                     this.handleOnChangeInput(event);
                                 }}
-                                value={this.state.address}
+                                value={this.state.data.address}
                             />
                         </div>
                         <div className="input-container input-addess">
@@ -171,7 +167,7 @@ class ModalEditUser extends Component {
                                 onChange={(event) => {
                                     this.handleOnChangeInput(event);
                                 }}
-                                value={this.state.phone}
+                                value={this.state.data.phone}
                             />
                         </div>
 
@@ -185,8 +181,8 @@ class ModalEditUser extends Component {
                                     this.handleOnChangeInput(event);
                                 }}
                                 style={{ padding: '5px 0' }}
-                                value={this.state.gender}
-                                required
+                                value={this.state.data.roleId}
+                                disabled
                             >
                                 <FormattedMessage id="system.doctor">{(message) => <option value="doctor">{message}</option>}</FormattedMessage>
                                 <FormattedMessage id="system.admin">{(message) => <option value="admin">{message}</option>}</FormattedMessage>
@@ -203,8 +199,8 @@ class ModalEditUser extends Component {
                                     this.handleOnChangeInput(event);
                                 }}
                                 style={{ padding: '5px 0' }}
-                                value={this.state.gender}
-                                required
+                                value={this.state.data.gender}
+                                disabled
                             >
                                 <FormattedMessage id="system.male">{(message) => <option value="male">{message}</option>}</FormattedMessage>
                                 <FormattedMessage id="system.female">{(message) => <option value="female">{message}</option>}</FormattedMessage>

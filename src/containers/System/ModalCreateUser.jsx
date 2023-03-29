@@ -79,7 +79,6 @@ class ModalCreateUser extends Component {
                 }}
                 className="modal-user-container"
                 size="lg" // 3 options: sm , lg , xl
-                // centered={true} if modal should be centered vertically in viewport
             >
                 <ModalHeader
                     toggle={() => {
@@ -102,6 +101,7 @@ class ModalCreateUser extends Component {
                                 }}
                                 value={this.state.email}
                             />
+                            {errCode === 1 || errCode === 2 ? <p style={{ color: 'red', margin: '5px 0px' }}>{errMessage}</p> : ''}
                         </div>
                         <div className="input-container">
                             <label htmlFor="">
@@ -168,6 +168,7 @@ class ModalCreateUser extends Component {
                                 }}
                                 value={this.state.phone}
                             />
+                            {errCode === 4 ? <p className="warning">{errMessage}</p> : ''}
                         </div>
 
                         <div className="input-container gender">
