@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './ManageForAdmin.scss';
-import { getAllUsers, createNewUserService, deleteUserService, editUserService } from '../../services/userService';
+import { getAllUsers, createNewUserService, editUserService } from '../../services/userService';
 import ModalCreateUser from './ModalCreateUser';
 import ModalEditUser from './ModalEditUser';
 import ModalDetails from './ModalDetails';
@@ -19,7 +19,6 @@ class ManageForAdmin extends Component {
             isOpenModalDetails: false,
             dataEditUser: {},
             dataDetailsUser: {},
-            userData: [],
         };
     }
 
@@ -50,6 +49,7 @@ class ManageForAdmin extends Component {
     createNewUser = async (data) => {
         try {
             let response = await createNewUserService(data);
+            console.log(data, '+', response);
             if (response && response.errCode === 0) {
                 this.cancelModalCreateUser();
                 this.getAllUserFromReact();
@@ -98,22 +98,6 @@ class ManageForAdmin extends Component {
         }
     };
 
-    // DELETE USER
-    handleDeleteUser = async (userId) => {
-        try {
-            let response = await deleteUserService(userId);
-            if (response && response.errCode !== 0) {
-                alert(response.errMessage);
-            } else {
-                // re-render if deleteUser successfully
-                this.getAllUserFromReact();
-                toast.success('Deleted information successfully!');
-            }
-        } catch (e) {
-            console.log(e);
-        }
-    };
-
     // FULL INFOMATION USER
     openDetailsUser = (data) => {
         this.setState({
@@ -127,7 +111,7 @@ class ManageForAdmin extends Component {
     };
 
     render() {
-        let { dataEditUser, dataDetailsUser, userData, usersPerPage, search } = this.state;
+        let { dataEditUser, dataDetailsUser } = this.state;
         let { language } = this.props;
 
         return (
@@ -177,14 +161,7 @@ class ManageForAdmin extends Component {
                     </button>
                 </div>
                 <div className="user-table mt-3 mx-1">
-                    <TableUsersForAdmin
-                        userData={userData}
-                        openDetailsUser={this.openDetailsUser}
-                        handleDeleteUser={this.handleDeleteUser}
-                        search={search}
-                        language={language}
-                        usersPerPage={usersPerPage}
-                    />
+                    <TableUsersForAdmin openDetailsUser={this.openDetailsUser} handleDeleteUser={this.handleDeleteUser} language={language} />
                 </div>
 
                 <ToastContainer

@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import { getAllUsers } from '../../services/userService';
 import ModalEditUser from './ModalEditUser';
 import ModalDiagnose from './ModalDiagnose';
 import './ManageForAdmin.scss';
 import TableUsersForDoctor from './TableUsersForDoctor';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { getAllUsers, editUserService } from '../../services/userService';
 
 class ManageForDoctor extends Component {
     constructor(props) {
@@ -15,25 +17,8 @@ class ManageForDoctor extends Component {
             isOpenModalDiagnose: false,
             dataEditUser: {},
             dataDiagnose: {},
-            userData: [],
-            search: '',
         };
     }
-
-    async componentDidMount() {
-        this.getAllUserFromReact();
-    }
-
-    // RE-RENDER LIST USER
-    getAllUserFromReact = async () => {
-        let response = await getAllUsers('ALL');
-        let newuserData = response.user.filter((item) => item.roleId === 'Patient');
-        if (response && response.errCode === 0) {
-            this.setState({
-                userData: newuserData,
-            });
-        }
-    };
 
     // UPDATE INPUT
     handleOnChangeInput = (event) => {
@@ -55,6 +40,21 @@ class ManageForDoctor extends Component {
         });
     };
 
+    handleEditUser = async (data) => {
+        try {
+            let response = await editUserService(data);
+            console.log(response);
+            if (response && response.errCode === 0) {
+                this.cancelModalEditUser();
+                toast.success('Updated information successfully!');
+                return true;
+            }
+            return false;
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
     openModalDiagnose = (data) => {
         this.setState({
             isOpenModalDiagnose: true,
@@ -68,32 +68,9 @@ class ManageForDoctor extends Component {
         });
     };
 
-    // CHANGE PAGE
-    paginate = (numberPage) => {
-        this.setState({
-            currentPage: numberPage,
-        });
-    };
-
-    prevPage = () => {
-        this.setState({
-            currentPage: this.state.currentPage - 1,
-        });
-    };
-
-    nextPage = () => {
-        this.setState({
-            currentPage: this.state.currentPage + 1,
-        });
-    };
-
     render() {
-        let { userData, dataEditUser, dataDiagnose, currentPage, usersPerPage, search } = this.state;
-        let indexOfLastUser = currentPage * usersPerPage;
-        let indexOfFirstUser = indexOfLastUser - usersPerPage;
-        let currentUsers = userData.slice(indexOfFirstUser, indexOfLastUser);
-        let { roleId } = this.props.userInfo;
-        console.log(this.state.isOpenModalEditUser);
+        let { dataEditUser, dataDiagnose } = this.state;
+
         return (
             <div className="users-container">
                 <div className="title text-content">
@@ -127,91 +104,22 @@ class ManageForDoctor extends Component {
                     </div>
                 </div>
                 <div className="user-table mt-3 mx-1">
-                    <FormattedMessage id="system.search">
-                        {(placeholder) => (
-                            <input
-                                type="text"
-                                name="search"
-                                onChange={(event) => {
-                                    this.handleOnChangeInput(event);
-                                }}
-                                placeholder={placeholder}
-                                style={{
-                                    padding: '6px 12px',
-                                    margin: '0 0 10px 10px',
-                                    outline: 'none',
-                                    borderRadius: '5px',
-                                    border: '1px solid #696969',
-                                    width: '230px',
-                                }}
-                            />
-                        )}
-                    </FormattedMessage>
-                    <TableUsersForDoctor currentUsers={currentUsers} openModalDiagnose={this.openModalDiagnose} search={search} roleId={roleId} />
-                    <div className="d-flex justify-content-center">
-                        {currentPage > 1 ? (
-                            <button
-                                style={{
-                                    padding: '4px 8px',
-                                    border: 'none',
-                                    margin: '20px 5px',
-                                    background: '#ccc',
-                                }}
-                                onClick={() => {
-                                    this.prevPage();
-                                }}
-                            >
-                                Previous
-                            </button>
-                        ) : (
-                            <button
-                                style={{
-                                    padding: '4px 8px',
-                                    border: 'none',
-                                    margin: '20px 5px',
-                                    background: '#ccc',
-                                }}
-                                onClick={() => {
-                                    this.prevPage();
-                                }}
-                                disabled
-                            >
-                                Previous
-                            </button>
-                        )}
-
-                        {currentPage < userData.length / usersPerPage ? (
-                            <button
-                                style={{
-                                    padding: '4px 8px',
-                                    border: 'none',
-                                    margin: '20px 5px',
-                                    background: '#ccc',
-                                }}
-                                onClick={() => {
-                                    this.nextPage();
-                                }}
-                            >
-                                Next
-                            </button>
-                        ) : (
-                            <button
-                                style={{
-                                    padding: '4px 8px',
-                                    border: 'none',
-                                    margin: '20px 5px',
-                                    background: '#ccc',
-                                }}
-                                onClick={() => {
-                                    this.nextPage();
-                                }}
-                                disabled
-                            >
-                                Next
-                            </button>
-                        )}
-                    </div>
+                    <TableUsersForDoctor openModalDiagnose={this.openModalDiagnose} />
                 </div>
+                <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                />
+                {/* Same as */}
+                <ToastContainer />
             </div>
         );
     }

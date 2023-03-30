@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { getAllUsers, editUserService } from '../../services/userService';
+import { getAllUsers } from '../../services/userService';
 
 class ModalEditUser extends Component {
     constructor(props) {
@@ -81,9 +81,8 @@ class ModalEditUser extends Component {
         console.log('is Valid', isValid);
 
         if (isValid && data) {
-            let response = await this.props.handleEditUser(data);
+            await this.props.handleEditUser(data);
             this.props.cancelModalEditUser();
-            console.log(response);
         }
     };
 

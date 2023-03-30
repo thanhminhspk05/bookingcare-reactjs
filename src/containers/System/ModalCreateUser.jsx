@@ -12,9 +12,9 @@ class ModalCreateUser extends Component {
             firstName: '',
             lastName: '',
             address: '',
-            roleId: '',
+            roleId: 'Doctor',
             phone: '',
-            gender: '',
+            gender: 'Male',
             errCode: '',
             errMessage: '',
         };
@@ -180,10 +180,16 @@ class ModalCreateUser extends Component {
                                     this.handleOnChangeInput(event);
                                 }}
                                 style={{ padding: '5px 0' }}
-                                value={this.state.gender}
+                                value={this.state.roleId}
                                 required
                             >
-                                <FormattedMessage id="system.doctor">{(message) => <option value="doctor">{message}</option>}</FormattedMessage>
+                                <FormattedMessage id="system.doctor">
+                                    {(message) => (
+                                        <option value="doctor" defaultValue>
+                                            {message}
+                                        </option>
+                                    )}
+                                </FormattedMessage>
                                 <FormattedMessage id="system.admin">{(message) => <option value="admin">{message}</option>}</FormattedMessage>
                             </select>
                         </div>
@@ -201,7 +207,13 @@ class ModalCreateUser extends Component {
                                 value={this.state.gender}
                                 required
                             >
-                                <FormattedMessage id="system.male">{(message) => <option value="male">{message}</option>}</FormattedMessage>
+                                <FormattedMessage id="system.male">
+                                    {(message) => (
+                                        <option value="male" defaultValue>
+                                            {message}
+                                        </option>
+                                    )}
+                                </FormattedMessage>
                                 <FormattedMessage id="system.female">{(message) => <option value="female">{message}</option>}</FormattedMessage>
                                 <FormattedMessage id="system.other">{(message) => <option value="other">{message}</option>}</FormattedMessage>
                             </select>

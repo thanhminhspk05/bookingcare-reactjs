@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import './TableUsers.scss';
-import { getAllUsers } from '../../services/userService';
+import { getAllUsers, deleteUserService } from '../../services/userService';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class TableUsersForAdmin extends Component {
     constructor(props) {
@@ -57,15 +59,38 @@ class TableUsersForAdmin extends Component {
         });
     };
 
+    handleDeleteUser = async (userId) => {
+        try {
+            let response = await deleteUserService(userId);
+            if (response && response.errCode !== 0) {
+                alert(response.errMessage);
+            } else {
+                // re-render if deleteUser successfully
+                this.getAllUserFromReact();
+                toast.success('Deleted information successfully!');
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
     handleSortData = (colName) => {
+        let copy = [...this.state.userData];
+        let sorted;
         if (this.state.order === 'ASC') {
-            let sorted = [...this.props.userData].sort((a, b) => (a.colName < b.colName ? 1 : -1));
-            console.log(sorted);
+            if (colName === 'id') {
+                sorted = copy.sort((a, b) => (a[colName] > b[colName] ? 1 : -1));
+            } else {
+                sorted = copy.sort((a, b) => (a[colName].toLowerCase() > b[colName].toLowerCase() ? 1 : -1));
+            }
             this.setState({ userData: sorted, order: 'DESC' });
         }
         if (this.state.order === 'DESC') {
-            let sorted = [...this.props.userData].sort((a, b) => (a.colName > b.colName ? 1 : -1));
-            console.log(sorted);
+            if (colName === 'id') {
+                sorted = copy.sort((a, b) => (a[colName] < b[colName] ? 1 : -1));
+            } else {
+                sorted = copy.sort((a, b) => (a[colName].toLowerCase() < b[colName].toLowerCase() ? 1 : -1));
+            }
             this.setState({ userData: sorted, order: 'ASC' });
         }
     };
@@ -87,9 +112,7 @@ class TableUsersForAdmin extends Component {
 
     render() {
         let { language } = this.props;
-        let { currentPage, usersPerPage, userData, userDataFilter, order } = this.state;
-        console.log('userData', userData);
-        console.log('userDataFilter', userDataFilter);
+        let { currentPage, usersPerPage, userData, userDataFilter } = this.state;
 
         // FORMULA
         usersPerPage = Number(usersPerPage);
@@ -100,7 +123,6 @@ class TableUsersForAdmin extends Component {
 
         let currentUserPage =
             userDataFilter === [] ? userDataFilter.slice(indexOfFirstUser, indexOfLastUser) : userData.slice(indexOfFirstUser, indexOfLastUser);
-        console.log(currentUserPage);
         let totalPages = Math.ceil(totalUsers / usersPerPage) + 1;
         let pageNumbers = [];
 
@@ -177,41 +199,56 @@ class TableUsersForAdmin extends Component {
                                 onClick={() => {
                                     this.handleSortData('id');
                                 }}
-                                style={{ width: '100px', textAlign: 'center' }}
+                                style={{ width: '60px', textAlign: 'center' }}
                             >
                                 <FormattedMessage id="system.number" />
+                                <i className="fas fa-sort" style={{ margin: '1px 3px' }}></i>
+                            </th>
+                            <th
+                                onClick={() => {
+                                    this.handleSortData('email');
+                                }}
+                                style={{ width: '25%' }}
+                            >
+                                <FormattedMessage id="system.email" />
+                                <i className="fas fa-sort" style={{ margin: '1px 3px' }}></i>
                             </th>
                             <th
                                 onClick={() => {
                                     this.handleSortData('firstName');
                                 }}
+                                style={{ width: '15%' }}
                             >
-                                <FormattedMessage id="system.email" />
-                            </th>
-                            <th>
                                 <FormattedMessage id="system.first-name" />
+                                <i className="fas fa-sort" style={{ margin: '1px 3px' }}></i>
                             </th>
                             <th
                                 onClick={() => {
                                     this.handleSortData('lastName');
                                 }}
+                                style={{ width: '15%' }}
                             >
                                 <FormattedMessage id="system.last-name" />
+                                <i className="fas fa-sort" style={{ margin: '1px 3px' }}></i>
                             </th>
                             <th
                                 onClick={() => {
                                     this.handleSortData('address');
                                 }}
+                                style={{ width: '25%' }}
                             >
                                 <FormattedMessage id="system.address" />
+                                <i className="fas fa-sort" style={{ margin: '1px 3px' }}></i>
                             </th>
 
                             <th
                                 onClick={() => {
                                     this.handleSortData('roleId');
                                 }}
+                                style={{ width: '100px' }}
                             >
                                 <FormattedMessage id="system.role" />
+                                <i className="fas fa-sort" style={{ margin: '1px 3px' }}></i>
                             </th>
                             <th>
                                 <FormattedMessage id="system.action" />
@@ -222,13 +259,7 @@ class TableUsersForAdmin extends Component {
                                 return (
                                     <tr key={item.id}>
                                         <td style={{ textAlign: 'center' }}>{item.id}</td>
-                                        <td
-                                            onClick={(event) => {
-                                                this.handleSortData(event);
-                                            }}
-                                        >
-                                            {item.email}
-                                        </td>
+                                        <td>{item.email}</td>
                                         <td>{item.firstName}</td>
                                         <td>{item.lastName}</td>
                                         <td>{item.address}</td>
@@ -250,11 +281,7 @@ class TableUsersForAdmin extends Component {
                                             >
                                                 <FormattedMessage id="system.detail" />
                                             </button>
-                                            <button
-                                                className="mx-2"
-                                                style={{ border: '1px solid #db0808' }}
-                                                onClick={() => this.props.handleDeleteUser(item.id)}
-                                            >
+                                            <button className="mx-2" style={{ border: '1px solid #db0808' }} onClick={() => this.handleDeleteUser(item.id)}>
                                                 <FormattedMessage id="system.delete" />
                                             </button>
                                         </td>
@@ -314,6 +341,20 @@ class TableUsersForAdmin extends Component {
                         )}
                     </div>
                 </div>
+                <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                />
+                {/* Same as */}
+                <ToastContainer />
             </>
         );
     }
