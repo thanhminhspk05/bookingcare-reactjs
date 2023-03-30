@@ -10,7 +10,7 @@ Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ### Back-end: NodeJS 14.17.0
-Go to https://github.com/thanhminhspk05/nodejs-finalproject and follow the instructions
+Go to https://github.com/thanhminhspk05/bookingcare-nodejs and follow the instructions
 
 ### The website can switch languages between English (EN) and Vietnamese (VI) using Redux and Redux-persist
 ![image](https://user-images.githubusercontent.com/69253365/228874308-26013cfa-6c2e-4418-8066-56c325674dec.png)
