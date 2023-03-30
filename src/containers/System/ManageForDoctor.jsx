@@ -17,8 +17,22 @@ class ManageForDoctor extends Component {
             isOpenModalDiagnose: false,
             dataEditUser: {},
             dataDiagnose: {},
+            userData: [],
         };
     }
+
+    componentDidMount() {
+        this.getAllUserFromReact();
+    }
+
+    getAllUserFromReact = async () => {
+        let response = await getAllUsers('ALL');
+        if (response && response.errCode === 0) {
+            this.setState({
+                userData: response.user,
+            });
+        }
+    };
 
     // UPDATE INPUT
     handleOnChangeInput = (event) => {
@@ -43,7 +57,6 @@ class ManageForDoctor extends Component {
     handleEditUser = async (data) => {
         try {
             let response = await editUserService(data);
-            console.log(response);
             if (response && response.errCode === 0) {
                 this.cancelModalEditUser();
                 toast.success('Updated information successfully!');
@@ -69,7 +82,8 @@ class ManageForDoctor extends Component {
     };
 
     render() {
-        let { dataEditUser, dataDiagnose } = this.state;
+        let { dataEditUser, dataDiagnose, userData } = this.state;
+        console.log(this.state);
 
         return (
             <div className="users-container">
@@ -104,7 +118,7 @@ class ManageForDoctor extends Component {
                     </div>
                 </div>
                 <div className="user-table mt-3 mx-1">
-                    <TableUsersForDoctor openModalDiagnose={this.openModalDiagnose} />
+                    {userData.length > 0 && <TableUsersForDoctor openModalDiagnose={this.openModalDiagnose} dataDiagnose={dataDiagnose} userData={userData} />}
                 </div>
                 <ToastContainer
                     position="top-right"

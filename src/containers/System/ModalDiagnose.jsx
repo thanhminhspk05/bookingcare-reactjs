@@ -13,6 +13,7 @@ class ModalDiagnose extends Component {
             id: '',
             diagnose: '',
             prescription: '',
+            userData: [],
         };
     }
 
@@ -49,7 +50,8 @@ class ModalDiagnose extends Component {
         let response = await editUserService(data);
         if (response && response.errCode === 0) {
             this.props.cancelModalDiagnose();
-            toast.success('Deleted information successfully!');
+            toast.success('Updated information successfully!');
+            this.getAllUserFromReact();
         }
     };
 

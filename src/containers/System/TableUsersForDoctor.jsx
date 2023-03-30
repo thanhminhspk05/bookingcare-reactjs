@@ -19,11 +19,13 @@ class TableUsersForDoctor extends Component {
 
     async componentDidMount() {
         this.getAllUserFromReact();
-        // let array = [];
-        // for (let i = 0; i < this.props.currentUsers.length; i++) {
-        //     array.push(false);
-        // }
-        // this.setState({ arrayIsFinish: array });
+        let array = [];
+        if (this.props.userData) {
+            for (let i = 0; i < this.props.userData.length; i++) {
+                array.push(false);
+            }
+        }
+        this.setState({ arrayIsFinish: array });
     }
 
     // RE-RENDER LIST USER
@@ -108,8 +110,17 @@ class TableUsersForDoctor extends Component {
         this.setState({ userData: userDataFilter });
     };
 
+    checkDone = (index) => {
+        let copy = [...this.state.arrayIsFinish];
+        copy[index] = !copy[index];
+        this.setState({ arrayIsFinish: copy });
+    };
+
     render() {
         let { language } = this.props;
+        console.log('state', this.state);
+        console.log('props', this.props);
+
         let { currentPage, usersPerPage, userData, userDataFilter, arrayIsFinish } = this.state;
 
         // FORMULA
@@ -264,14 +275,19 @@ class TableUsersForDoctor extends Component {
                                         <td style={{ width: '150px' }}>
                                             <button
                                                 onClick={() => {
-                                                    this.props.openDetailsUser(item);
+                                                    this.props.openModalDiagnose(item);
                                                 }}
                                                 style={{ border: '1px solid #ca8229' }}
                                             >
-                                                <FormattedMessage id="system.detail" />
+                                                <FormattedMessage id="system.diagnose" />
                                             </button>
-                                            <button className="mx-2" style={{ border: '1px solid #db0808' }} onClick={() => this.handleDeleteUser(item.id)}>
-                                                <FormattedMessage id="system.delete" />
+                                            <button
+                                                onClick={() => {
+                                                    this.checkDone(index);
+                                                }}
+                                                style={{ border: 'none', color: 'green', margin: '0 5px' }}
+                                            >
+                                                {arrayIsFinish[index] ? <i className="fas fa-check"></i> : <FormattedMessage id="system.done" />}
                                             </button>
                                         </td>
                                     </tr>
