@@ -1,7 +1,7 @@
 # Clone BookingCare.vn
 The website is based on the design of bookingcare.vn and the intended use so that patients can book an appointment with a doctor. After examination, the prescription can be displayed on the patient's account
 ## Installation instructions
-### Front-end: ReactJS
+### Front-end: ReactJS 17.0.2
 #### `npm install`
 Download node_modules to install the necessary libraries
 
@@ -9,7 +9,7 @@ Download node_modules to install the necessary libraries
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-### Back-end: NodeJS
+### Back-end: NodeJS 14.17.0
 Go to https://github.com/thanhminhspk05/nodejs-finalproject and follow the instructions
 
 ### The website can switch languages between English (EN) and Vietnamese (VI) using Redux and Redux-persist
