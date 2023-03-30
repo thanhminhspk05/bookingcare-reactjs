@@ -20,13 +20,7 @@ class ManageForAdmin extends Component {
             dataEditUser: {},
             dataDetailsUser: {},
             userData: [],
-            usersPerPage: 10,
-            search: '',
         };
-    }
-
-    async componentDidMount() {
-        await this.getAllUserFromReact();
     }
 
     // RE-RENDER LIST USER
@@ -133,7 +127,7 @@ class ManageForAdmin extends Component {
     };
 
     render() {
-        let { dataEditUser, dataDetailsUser, userData, currentPage, usersPerPage, search } = this.state;
+        let { dataEditUser, dataDetailsUser, userData, usersPerPage, search } = this.state;
         let { language } = this.props;
 
         return (
@@ -183,50 +177,6 @@ class ManageForAdmin extends Component {
                     </button>
                 </div>
                 <div className="user-table mt-3 mx-1">
-                    <div className="d-flex justify-content-between">
-                        <FormattedMessage id="system.search">
-                            {(placeholder) => (
-                                <input
-                                    type="text"
-                                    name="search"
-                                    onChange={(event) => {
-                                        this.handleOnChangeInput(event);
-                                    }}
-                                    placeholder={placeholder}
-                                    style={{
-                                        padding: '6px 12px',
-                                        margin: '0 0 10px 10px',
-                                        outline: 'none',
-                                        borderRadius: '5px',
-                                        border: '1px solid #696969',
-                                        width: '320px',
-                                    }}
-                                />
-                            )}
-                        </FormattedMessage>
-                        <div>
-                            <label className="mx-1">
-                                Show
-                                <select
-                                    className="mx-2"
-                                    name="usersPerPage"
-                                    onChange={(event) => {
-                                        this.handleOnChangeInput(event);
-                                    }}
-                                >
-                                    <option value="10" defaultValue>
-                                        10
-                                    </option>
-                                    <option value="15">15</option>
-                                    <option value="20">20</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                </select>
-                                entries
-                            </label>
-                        </div>
-                    </div>
-
                     <TableUsersForAdmin
                         userData={userData}
                         openDetailsUser={this.openDetailsUser}
