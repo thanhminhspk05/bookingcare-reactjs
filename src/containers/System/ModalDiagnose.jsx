@@ -98,6 +98,9 @@ class ModalDiagnose extends Component {
                             {language === 'vi' && userData.gender === 'Other' && 'Khác'}
                             {language === 'en' && userData.gender}
                         </div>
+                        <div>
+                            <FormattedMessage id="system.phone" />: {userData.statusHealth}
+                        </div>
                         <div className="form-outline mb-4">
                             <label className="form-label">
                                 <FormattedMessage id="system.diagnose" />:
