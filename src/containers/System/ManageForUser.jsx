@@ -56,7 +56,6 @@ class ManageForUser extends Component {
                 let newData = await getAllUsers(this.state.id);
                 if (newData && newData.errCode === 0) {
                     newData = newData.user;
-                    console.log('new', newData);
                     this.setState({
                         id: newData.id,
                         firstName: newData.firstName,
@@ -79,7 +78,6 @@ class ManageForUser extends Component {
     };
 
     render() {
-        console.log(this.state);
         return (
             <div className="container-for" style={{ width: '80%', maxWidth: '550px', margin: '30px auto', border: '1px solid #ccc', padding: '30px' }}>
                 <form>

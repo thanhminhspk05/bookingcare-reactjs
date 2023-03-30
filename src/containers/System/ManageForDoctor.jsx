@@ -83,7 +83,6 @@ class ManageForDoctor extends Component {
 
     render() {
         let { dataEditUser, dataDiagnose, userData } = this.state;
-        console.log(this.state);
 
         return (
             <div className="users-container">

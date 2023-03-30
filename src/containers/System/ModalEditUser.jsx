@@ -76,7 +76,6 @@ class ModalEditUser extends Component {
 
     handleSaveUser = async () => {
         let data = this.state;
-        console.log(data);
         let isValid = this.checkValidateInput();
         console.log('is Valid', isValid);
 
@@ -87,7 +86,6 @@ class ModalEditUser extends Component {
     };
 
     render() {
-        console.log(this.state);
         let { email, firstName, lastName, address, phone, gender, roleId, birthday } = this.state;
         return (
             <Modal

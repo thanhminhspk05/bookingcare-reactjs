@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { getAllUsers } from '../../services/userService';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 class TableUsersForDoctor extends Component {
@@ -118,9 +118,6 @@ class TableUsersForDoctor extends Component {
 
     render() {
         let { language } = this.props;
-        console.log('state', this.state);
-        console.log('props', this.props);
-
         let { currentPage, usersPerPage, userData, userDataFilter, arrayIsFinish } = this.state;
 
         // FORMULA

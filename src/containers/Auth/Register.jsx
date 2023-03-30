@@ -58,7 +58,6 @@ class Register extends Component {
     };
 
     render() {
-        console.log(this.state);
         let { errCode, errMessage } = this.state;
         return (
             <div className="register-background ">

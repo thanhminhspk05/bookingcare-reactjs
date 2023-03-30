@@ -49,7 +49,6 @@ class ManageForAdmin extends Component {
     createNewUser = async (data) => {
         try {
             let response = await createNewUserService(data);
-            console.log(data, '+', response);
             if (response && response.errCode === 0) {
                 this.cancelModalCreateUser();
                 this.getAllUserFromReact();
@@ -85,7 +84,6 @@ class ManageForAdmin extends Component {
     handleEditUser = async (data) => {
         try {
             let response = await editUserService(data);
-            console.log(response);
             if (response && response.errCode === 0) {
                 this.cancelModalEditUser();
                 this.getAllUserFromReact();
