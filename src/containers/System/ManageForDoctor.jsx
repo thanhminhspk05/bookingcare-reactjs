@@ -6,7 +6,6 @@ import ModalEditUser from './ModalEditUser';
 import ModalDiagnose from './ModalDiagnose';
 import './ManageForAdmin.scss';
 import TableUsersForDoctor from './TableUsersForDoctor';
-import Pagination from './Pagination';
 
 class ManageForDoctor extends Component {
     constructor(props) {
@@ -17,8 +16,6 @@ class ManageForDoctor extends Component {
             dataEditUser: {},
             dataDiagnose: {},
             userData: [],
-            currentPage: 1,
-            usersPerPage: 10,
             search: '',
         };
     }
@@ -183,7 +180,6 @@ class ManageForDoctor extends Component {
                             </button>
                         )}
 
-                        <Pagination usersPerPage={usersPerPage} totalUsers={userData.length} paginate={this.paginate} />
                         {currentPage < userData.length / usersPerPage ? (
                             <button
                                 style={{
