@@ -1,26 +1,31 @@
 # Clone BookingCare.vn
-### `npm install`
+The website is based on the design of bookingcare.vn and the intended use so that patients can book an appointment with a doctor. After examination, the prescription can be displayed on the patient's account
+## Installation instructions
+### Front-end: ReactJS
+#### `npm install`
 Download node_modules to install the necessary libraries
 
-### `npm start`
-
+#### `npm start`
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-## The website can switch languages between English (EN) and Vietnamese (VI) using Redux and Redux-persist
+### Back-end: NodeJS
+Go to https://github.com/thanhminhspk05/nodejs-finalproject and follow the instructions
+
+### The website can switch languages between English (EN) and Vietnamese (VI) using Redux and Redux-persist
 ![image](https://user-images.githubusercontent.com/69253365/228874308-26013cfa-6c2e-4418-8066-56c325674dec.png)
 
 ![image](https://user-images.githubusercontent.com/69253365/228875469-5420f0fb-e18c-4e96-8b29-c3d6f0b2cd11.png)
 
 
-## Login page
+### Login page
 ![image](https://user-images.githubusercontent.com/69253365/228877365-d3ff0950-d219-4635-b91a-ce0c88e49fca.png)
 
 
-## Register
+### Register
 ![image](https://user-images.githubusercontent.com/69253365/228877549-10c549ec-fe7b-43f4-95d2-ef5e4935588d.png)
 
-## User Manage
+### User Manage
 #### Role : Admin
 #### Function: Manage patient and doctor information
 ![image](https://user-images.githubusercontent.com/69253365/228878382-c06b2304-6be0-4bed-ac63-0663edc6e9bb.png)
