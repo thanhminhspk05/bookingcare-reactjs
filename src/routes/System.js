@@ -13,7 +13,6 @@ class System extends Component {
     render() {
         let { systemMenuPath } = this.props;
         let roleId = this.props.userInfo.roleId;
-        console.log(roleId);
         return (
             <div className="system-container">
                 {this.props.isLoggedIn && <Header />}

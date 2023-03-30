@@ -7,7 +7,6 @@ import ModalEditUser from './ModalEditUser';
 import ModalDetails from './ModalDetails';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Pagination from './Pagination';
 import { FormattedMessage } from 'react-intl';
 import TableUsersForAdmin from './TableUsersForAdmin';
 
@@ -21,7 +20,6 @@ class ManageForAdmin extends Component {
             dataEditUser: {},
             dataDetailsUser: {},
             userData: [],
-            currentPage: 1,
             usersPerPage: 10,
             search: '',
         };
@@ -134,31 +132,9 @@ class ManageForAdmin extends Component {
         this.setState({ isOpenModalDetails: false });
     };
 
-    // CHANGE PAGE
-    paginate = (numberPage) => {
-        this.setState({
-            currentPage: numberPage,
-        });
-    };
-
-    prevPage = () => {
-        this.setState({
-            currentPage: this.state.currentPage - 1,
-        });
-    };
-
-    nextPage = () => {
-        this.setState({
-            currentPage: this.state.currentPage + 1,
-        });
-    };
-
     render() {
         let { dataEditUser, dataDetailsUser, userData, currentPage, usersPerPage, search } = this.state;
         let { language } = this.props;
-        let indexOfLastUser = currentPage * usersPerPage;
-        let indexOfFirstUser = indexOfLastUser - usersPerPage;
-        let currentUsers = userData.slice(indexOfFirstUser, indexOfLastUser);
 
         return (
             <div className="users-container">
@@ -207,98 +183,60 @@ class ManageForAdmin extends Component {
                     </button>
                 </div>
                 <div className="user-table mt-3 mx-1">
-                    <FormattedMessage id="system.search">
-                        {(placeholder) => (
-                            <input
-                                type="text"
-                                name="search"
-                                onChange={(event) => {
-                                    this.handleOnChangeInput(event);
-                                }}
-                                placeholder={placeholder}
-                                style={{
-                                    padding: '6px 12px',
-                                    margin: '0 0 10px 10px',
-                                    outline: 'none',
-                                    borderRadius: '5px',
-                                    border: '1px solid #696969',
-                                    width: '320px',
-                                }}
-                            />
-                        )}
-                    </FormattedMessage>
+                    <div className="d-flex justify-content-between">
+                        <FormattedMessage id="system.search">
+                            {(placeholder) => (
+                                <input
+                                    type="text"
+                                    name="search"
+                                    onChange={(event) => {
+                                        this.handleOnChangeInput(event);
+                                    }}
+                                    placeholder={placeholder}
+                                    style={{
+                                        padding: '6px 12px',
+                                        margin: '0 0 10px 10px',
+                                        outline: 'none',
+                                        borderRadius: '5px',
+                                        border: '1px solid #696969',
+                                        width: '320px',
+                                    }}
+                                />
+                            )}
+                        </FormattedMessage>
+                        <div>
+                            <label className="mx-1">
+                                Show
+                                <select
+                                    className="mx-2"
+                                    name="usersPerPage"
+                                    onChange={(event) => {
+                                        this.handleOnChangeInput(event);
+                                    }}
+                                >
+                                    <option value="10" defaultValue>
+                                        10
+                                    </option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                                entries
+                            </label>
+                        </div>
+                    </div>
+
                     <TableUsersForAdmin
-                        currentUsers={currentUsers}
+                        userData={userData}
                         openDetailsUser={this.openDetailsUser}
                         handleDeleteUser={this.handleDeleteUser}
                         search={search}
                         language={language}
+                        usersPerPage={usersPerPage}
                     />
-                    <div className="d-flex justify-content-center">
-                        {currentPage > 1 ? (
-                            <button
-                                style={{
-                                    padding: '4px 8px',
-                                    border: 'none',
-                                    margin: '20px 5px',
-                                    background: '#ccc',
-                                }}
-                                onClick={() => {
-                                    this.prevPage();
-                                }}
-                            >
-                                <FormattedMessage id="system.previous" />
-                            </button>
-                        ) : (
-                            <button
-                                style={{
-                                    padding: '4px 8px',
-                                    border: 'none',
-                                    margin: '20px 5px',
-                                    background: '#ccc',
-                                }}
-                                onClick={() => {
-                                    this.prevPage();
-                                }}
-                                disabled
-                            >
-                                <FormattedMessage id="system.previous" />
-                            </button>
-                        )}
-
-                        <Pagination usersPerPage={usersPerPage} totalUsers={userData.length} paginate={this.paginate} />
-                        {currentPage < userData.length / usersPerPage ? (
-                            <button
-                                style={{
-                                    padding: '4px 8px',
-                                    border: 'none',
-                                    margin: '20px 5px',
-                                    background: '#ccc',
-                                }}
-                                onClick={() => {
-                                    this.nextPage();
-                                }}
-                            >
-                                <FormattedMessage id="system.next" />
-                            </button>
-                        ) : (
-                            <button
-                                style={{
-                                    padding: '4px 8px',
-                                    border: 'none',
-                                    margin: '20px 5px',
-                                    background: '#ccc',
-                                }}
-                                onClick={() => {
-                                    this.nextPage();
-                                }}
-                                disabled
-                            >
-                                <FormattedMessage id="system.next" />
-                            </button>
-                        )}
-                    </div>
                 </div>
+
                 <ToastContainer
                     position="top-right"
                     autoClose={5000}

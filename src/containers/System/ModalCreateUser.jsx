@@ -69,7 +69,6 @@ class ModalCreateUser extends Component {
 
     render() {
         let { errCode, errMessage } = this.state;
-        console.log(errMessage);
 
         return (
             <Modal
