@@ -1,76 +1,48 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Clone BookingCare.vn
+The website is based on the design of bookingcare.vn and the intended use so that patients can book an appointment with a doctor. After examination, the prescription can be displayed on the patient's account
+## Installation instructions
+### Front-end: ReactJS 17.0.2
+#### `npm install`
+Download node_modules to install the necessary libraries
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
+#### `npm start`
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+### Back-end: NodeJS 14.17.0
+Go to https://github.com/thanhminhspk05/bookingcare-nodejs and follow the instructions
 
-### `npm test`
+### The website can switch languages between English (EN) and Vietnamese (VI) using Redux and Redux-persist
+![image](https://user-images.githubusercontent.com/69253365/228874308-26013cfa-6c2e-4418-8066-56c325674dec.png)
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![image](https://user-images.githubusercontent.com/69253365/228875469-5420f0fb-e18c-4e96-8b29-c3d6f0b2cd11.png)
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Login page
+![image](https://user-images.githubusercontent.com/69253365/228877365-d3ff0950-d219-4635-b91a-ce0c88e49fca.png)
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Register
+![image](https://user-images.githubusercontent.com/69253365/228877549-10c549ec-fe7b-43f4-95d2-ef5e4935588d.png)
 
-### `npm run eject`
+### User Manage
+#### Role : Admin
+#### Function: Manage patient and doctor information
+![image](https://user-images.githubusercontent.com/69253365/228878382-c06b2304-6be0-4bed-ac63-0663edc6e9bb.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+#### Role : Doctor
+#### Function: Diagnose and give Prescription
+![image](https://user-images.githubusercontent.com/69253365/228880901-29c691dd-9f76-40a3-94a2-599e18003797.png)
+![image](https://user-images.githubusercontent.com/69253365/228882091-ebe605e2-267f-42f8-a090-f73ac6f368f6.png)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+#### Role : Patient
+#### Function: Update their state of health
+![image](https://user-images.githubusercontent.com/69253365/228881653-2e3b9f27-f5f3-4774-abba-11b63173edc7.png)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
-
-### npx sequelize-cli db:migrate
-
-This section has created migration tables
-
-### npx sequelize-cli db:seed:all
-
-This section has created data users table
+#### Other Function:
+* Switch languages between English (EN) and Vietnamese (VI)
+* Search all filed: ID, Email, First Name, Last Name, Address and Role.
+* Sort all field in Ascending Order or Descending Order
+* Custom display the number of users per table: 10, 15, 20, 50, 100
+* Edit your own personal information
