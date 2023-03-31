@@ -27,6 +27,10 @@ Go to https://github.com/thanhminhspk05/bookingcare-nodejs and follow the instru
 ### Register
 ![image](https://user-images.githubusercontent.com/69253365/228877549-10c549ec-fe7b-43f4-95d2-ef5e4935588d.png)
 
+### Conform email
+![image](https://user-images.githubusercontent.com/69253365/229015688-f7296aca-94e2-4b61-a1c6-77c43510ae83.png)
+
+
 ### User Manage
 #### Role : Admin
 #### Function: Manage patient and doctor information
@@ -43,8 +47,18 @@ Go to https://github.com/thanhminhspk05/bookingcare-nodejs and follow the instru
 ![image](https://user-images.githubusercontent.com/69253365/228881653-2e3b9f27-f5f3-4774-abba-11b63173edc7.png)
 
 #### Other Function:
-* Switch languages between English (EN) and Vietnamese (VI)
-* Search all filed: ID, Email, First Name, Last Name, Address and Role.
-* Sort all field in Ascending Order or Descending Order
-* Custom display the number of users per table: 10, 15, 20, 50, 100
+* Add new user from Admin
+![image](https://user-images.githubusercontent.com/69253365/229016076-8eae6bba-0326-4eb9-a3d4-605169254c6e.png)
+
 * Edit your own personal information
+![image](https://user-images.githubusercontent.com/69253365/229016143-4909d86b-eda5-4c62-a6c1-43dfdcdd9628.png)
+
+* Search all filed: ID, Email, First Name, Last Name, Address and Role.
+![image](https://user-images.githubusercontent.com/69253365/229016286-1e48e81e-2c88-48b2-8f4d-dbf9f06c9325.png)
+
+* Sort all field in Ascending Order or Descending Order
+![image](https://user-images.githubusercontent.com/69253365/229016402-680fa48f-d49a-45b1-a6bc-c41a915a9a3b.png)
+
+* Custom display the number of users per table: 10, 15, 20, 50, 100
+![image](https://user-images.githubusercontent.com/69253365/229016535-9a915a8b-5bf2-4211-a891-7be4021669cc.png)
+
