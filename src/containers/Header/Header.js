@@ -6,20 +6,36 @@ import Navigator from '../../components/Navigator';
 import { adminMenu, doctorMenu } from './menuApp';
 import './Header.scss';
 import { changeLanguageApp } from '../../store/actions/appActions';
-import { LANGUAGES, USER_ROLE } from '../../utils';
+import { LANGUAGES } from '../../utils';
 import { FormattedMessage } from 'react-intl';
+import { getAllUsers } from '../../services/userService';
 
 class Header extends Component {
     constructor(props) {
         super(props);
-        this.state = { menuApp: {} };
+        this.state = { id: '', menuApp: {}, userData: {} };
     }
+
+    componentDidMount() {
+        this.getUserFromReact();
+    }
+
+    getUserFromReact = async () => {
+        let response = await getAllUsers(this.props.userInfo.id);
+        if (response && response.errCode === 0) {
+            this.setState({
+                userData: response.user,
+            });
+        }
+    };
+
     changeLanguage(language) {
         this.props.changeLanguageAppRedux(language);
     }
 
     render() {
-        let { firstName, lastName } = this.props.userInfo;
+        let { firstName, lastName } = this.state.userData ? this.state.userData : this.props.userInfo;
+
         const { processLogout, language } = this.props;
         return (
             <div className="header-container">
