@@ -9,10 +9,12 @@ Download node_modules to install the necessary libraries
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
+#### Technologies: React, React-route-dom, React-toastify, React Modal, React-Intl, Redux, Redux-Persist, Bootstrap, Axios, Fontawsome
+
 ### Back-end: NodeJS 14.17.0
 Go to https://github.com/thanhminhspk05/bookingcare-nodejs and follow the instructions
 
-### The website can switch languages between English (EN) and Vietnamese (VI) using Redux and Redux-persist
+### The website can switch languages between English (EN) and Vietnamese (VI) using Redux and Redux-persist and React-Intl
 ![image](https://user-images.githubusercontent.com/69253365/228874308-26013cfa-6c2e-4418-8066-56c325674dec.png)
 
 ![image](https://user-images.githubusercontent.com/69253365/228875469-5420f0fb-e18c-4e96-8b29-c3d6f0b2cd11.png)
