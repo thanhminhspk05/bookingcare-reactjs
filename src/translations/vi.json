@@ -118,6 +118,10 @@
         "done": "Xong",
         "male": "Nam",
         "female": "Nữ",
-        "other": "Other"
+        "other": "Other",
+        "show": "Hiển thị",
+        "to": "tới",
+        "user": "người dùng",
+        "of": "trong"
     }
 }

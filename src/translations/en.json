@@ -118,6 +118,10 @@
         "done": "Done",
         "male": "Male",
         "female": "Female",
-        "other": "Other"
+        "other": "Other",
+        "show": "Show",
+        "to": "to",
+        "user": "user",
+        "of": "of"
     }
 }

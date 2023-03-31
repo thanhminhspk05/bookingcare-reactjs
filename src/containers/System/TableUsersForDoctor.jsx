@@ -178,7 +178,7 @@ class TableUsersForDoctor extends Component {
                     </div>
                     <div>
                         <label className="mx-1">
-                            Show
+                            <FormattedMessage id="system.show" />
                             <select
                                 className="mx-2"
                                 name="usersPerPage"
@@ -194,7 +194,7 @@ class TableUsersForDoctor extends Component {
                                 <option value="50">50</option>
                                 <option value="100">100</option>
                             </select>
-                            entries
+                            <FormattedMessage id="system.user" />
                         </label>
                     </div>
                 </div>
@@ -293,7 +293,10 @@ class TableUsersForDoctor extends Component {
                     </tbody>
                 </table>
                 <div className="pagination-footer">
-                    <span>{`Show ${indexOfFirstUser + 1} to ${indexOfLastUser} of ${totalUsers} entries`}</span>
+                    <span>
+                        <FormattedMessage id="system.show" /> {`${indexOfFirstUser + 1}`} <FormattedMessage id="system.to" /> {`${indexOfLastUser} `}
+                        <FormattedMessage id="system.of" /> {`${totalUsers}`} <FormattedMessage id="system.user" />
+                    </span>
                     <div className="index-buttons">
                         {currentPage === 1 ? (
                             <button
@@ -362,16 +365,16 @@ class TableUsersForDoctor extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        isLoggedIn: state.user.isLoggedIn,
-        userInfo: state.user.userInfo,
-        language: state.app.language,
-    };
-};
+// const mapStateToProps = (state) => {
+//     return {
+//         isLoggedIn: state.user.isLoggedIn,
+//         userInfo: state.user.userInfo,
+//         language: state.app.language,
+//     };
+// };
 
-const mapDispatchToProps = (dispatch) => {
-    return {};
-};
+// const mapDispatchToProps = (dispatch) => {
+//     return {};
+// };
 
 export default TableUsersForDoctor;

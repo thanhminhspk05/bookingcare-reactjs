@@ -9,7 +9,7 @@ class HomeFooter extends Component {
             <div className="footer">
                 <p>
                     &copy; 2023 BookingCare. <FormattedMessage id="home-footer.contact" /> &#8594;{' '}
-                    <a href="#" target="_blank">
+                    <a href="/#" target="_blank">
                         <FormattedMessage id="home-footer.click-here" />
                     </a>{' '}
                     &#8592;

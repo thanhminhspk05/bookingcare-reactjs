@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import * as actions from '../../store/actions';
 import Navigator from '../../components/Navigator';
-import { adminMenu, doctorMenu } from './menuApp';
+import { adminMenu } from './menuApp';
 import './Header.scss';
 import { changeLanguageApp } from '../../store/actions/appActions';
 import { LANGUAGES } from '../../utils';
