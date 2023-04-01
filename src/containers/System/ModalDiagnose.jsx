@@ -51,7 +51,6 @@ class ModalDiagnose extends Component {
         if (response && response.errCode === 0) {
             this.props.cancelModalDiagnose();
             toast.success('Updated information successfully!');
-            this.getAllUserFromReact();
         }
     };
 
