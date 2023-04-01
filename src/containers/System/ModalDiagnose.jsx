@@ -11,43 +11,30 @@ class ModalDiagnose extends Component {
         super(props);
         this.state = {
             id: '',
-            diagnose: '',
-            prescription: '',
-            userData: [],
+            userData: {},
         };
     }
 
-    componentDidMount() {
-        this.setState({
-            id: this.props.dataDiagnose.id,
-            diagnose: this.props.dataDiagnose.diagnose,
-            prescription: this.props.dataDiagnose.prescription,
-        });
-    }
-
-    getAllUserFromReact = async () => {
-        let response = await getAllUsers('ALL');
+    async componentDidMount() {
+        let response = await getAllUsers(this.props.dataDiagnose.id);
         if (response && response.errCode === 0) {
             this.setState({
                 userData: response.user,
             });
         }
-    };
+    }
 
     handleOnChangeInput(event) {
         this.setState({
-            [event.target.name]: event.target.value,
+            userData: {
+                ...this.state.userData,
+                [event.target.name]: event.target.value,
+            },
         });
     }
 
     handleUpdateDiagnose = async () => {
-        let data = {
-            id: this.state.id,
-            diagnose: this.state.diagnose,
-            prescription: this.state.prescription,
-        };
-
-        let response = await editUserService(data);
+        let response = await editUserService(this.state.userData);
         if (response && response.errCode === 0) {
             this.props.cancelModalDiagnose();
             toast.success('Updated information successfully!');
@@ -57,6 +44,7 @@ class ModalDiagnose extends Component {
     render() {
         let userData = this.props.dataDiagnose;
         let { language } = this.props;
+        console.log(this.state.userData);
 
         return (
             <>
@@ -110,7 +98,7 @@ class ModalDiagnose extends Component {
                                 onChange={(event) => {
                                     this.handleOnChangeInput(event);
                                 }}
-                                value={this.state.diagnose || ''}
+                                value={this.state.userData.diagnose || ''}
                                 rows="2"
                                 cols="50"
                                 required
@@ -124,7 +112,7 @@ class ModalDiagnose extends Component {
                                 onChange={(event) => {
                                     this.handleOnChangeInput(event);
                                 }}
-                                value={this.state.prescription || ''}
+                                value={this.state.userData.prescription || ''}
                                 rows="4"
                                 cols="50"
                                 required
