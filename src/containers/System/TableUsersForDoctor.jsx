@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { getAllUsers } from '../../services/userService';
+import { getAllUsers, editUserService } from '../../services/userService';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -9,7 +9,6 @@ class TableUsersForDoctor extends Component {
         super(props);
         this.state = {
             userData: [],
-            arrayIsFinish: [],
             currentPage: 1,
             order: 'ASC',
             search: '',
@@ -19,13 +18,6 @@ class TableUsersForDoctor extends Component {
 
     async componentDidMount() {
         this.getAllUserFromReact();
-        let array = [];
-        if (this.props.userData) {
-            for (let i = 0; i < this.props.userData.length; i++) {
-                array.push(false);
-            }
-        }
-        this.setState({ arrayIsFinish: array });
     }
 
     // RE-RENDER LIST USER
@@ -110,15 +102,20 @@ class TableUsersForDoctor extends Component {
         this.setState({ userData: userDataFilter });
     };
 
-    checkDone = (index) => {
-        let copy = [...this.state.arrayIsFinish];
-        copy[index] = !copy[index];
-        this.setState({ arrayIsFinish: copy });
+    checkDone = async (index) => {
+        let copy = [...this.state.userData];
+        if (copy[index].done === 0) {
+            copy[index].done = 1;
+        } else {
+            copy[index].done = 0;
+        }
+        this.setState({ userData: copy });
+        await editUserService(this.state.userData[index]);
     };
 
     render() {
         let { language } = this.props;
-        let { currentPage, usersPerPage, userData, userDataFilter, arrayIsFinish } = this.state;
+        let { currentPage, usersPerPage, userData, userDataFilter } = this.state;
 
         // FORMULA
         usersPerPage = Number(usersPerPage);
@@ -127,6 +124,7 @@ class TableUsersForDoctor extends Component {
         let totalUsers = userData ? userData.length : 0;
         indexOfLastUser = indexOfLastUser > totalUsers ? totalUsers : indexOfLastUser;
 
+        console.log(userData);
         let currentUserPage =
             userDataFilter === [] ? userDataFilter.slice(indexOfFirstUser, indexOfLastUser) : userData.slice(indexOfFirstUser, indexOfLastUser);
         let totalPages = Math.ceil(totalUsers / usersPerPage) + 1;
@@ -135,6 +133,7 @@ class TableUsersForDoctor extends Component {
         for (let i = 1; i < totalPages; i++) {
             pageNumbers.push(i);
         }
+        console.log(this.state.userData);
 
         return (
             <>
@@ -284,7 +283,7 @@ class TableUsersForDoctor extends Component {
                                                 }}
                                                 style={{ border: 'none', color: 'green', margin: '0 5px' }}
                                             >
-                                                {arrayIsFinish[index] ? <i className="fas fa-check"></i> : <FormattedMessage id="system.done" />}
+                                                {item.done ? <i className="fas fa-check"></i> : <FormattedMessage id="system.done" />}
                                             </button>
                                         </td>
                                     </tr>
