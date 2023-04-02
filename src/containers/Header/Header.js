@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import * as actions from '../../store/actions';
-import Navigator from '../../components/Navigator';
-import { adminMenu } from './menuApp';
 import './Header.scss';
 import { changeLanguageApp } from '../../store/actions/appActions';
 import { LANGUAGES } from '../../utils';
@@ -39,9 +37,9 @@ class Header extends Component {
         const { processLogout, language } = this.props;
         return (
             <div className="header-container">
-                <div className="header-tabs-container">
-                    <Navigator menus={adminMenu} />
-                </div>
+                <a href="/home" className="home">
+                    {}
+                </a>
 
                 <div className="language-logout">
                     <span className="welcome">

@@ -4,10 +4,19 @@
     z-index: 99;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     background-color: $colormain;
     color: $common-text-color;
     height: 40px;
     position: relative;
+
+    .home {
+        background: url('../../assets/logo.svg');
+        height: 30px;
+        width: 200px;
+        background-repeat: no-repeat;
+        margin-left: 15px;
+    }
 
     .language-logout {
         .welcome {
