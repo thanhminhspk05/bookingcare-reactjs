@@ -60,17 +60,19 @@ class TableUsersForAdmin extends Component {
     };
 
     handleDeleteUser = async (userId) => {
-        try {
-            let response = await deleteUserService(userId);
-            if (response && response.errCode !== 0) {
-                alert(response.errMessage);
-            } else {
-                // re-render if deleteUser successfully
-                this.getAllUserFromReact();
-                toast.success('Deleted information successfully!');
+        if (window.confirm('Are you sure to delete this user?')) {
+            try {
+                let response = await deleteUserService(userId);
+                if (response && response.errCode !== 0) {
+                    alert(response.errMessage);
+                } else {
+                    // re-render if deleteUser successfully
+                    this.getAllUserFromReact();
+                    toast.success('Deleted information successfully!');
+                }
+            } catch (e) {
+                console.log(e);
             }
-        } catch (e) {
-            console.log(e);
         }
     };
 
